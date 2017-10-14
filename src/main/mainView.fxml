@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
@@ -9,30 +12,47 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 
-<GridPane xmlns:fx="http://javafx.com/fxml/1" alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8"
-          fx:controller="main.mainViewController">
-   <columnConstraints>
-      <ColumnConstraints />
-   </columnConstraints>
-   <rowConstraints>
-      <RowConstraints />
-   </rowConstraints>
+<Pane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+      minWidth="-Infinity" prefHeight="680.0" prefWidth="931.0" xmlns="http://javafx.com/javafx/8"
+      fx:controller="main.mainViewController">
    <children>
-      <BorderPane prefHeight="300.0" prefWidth="400.0">
-         <top>
-            <Label text="Star Hotel Management System" BorderPane.alignment="TOP_CENTER">
-               <BorderPane.margin>
-                  <Insets top="1.0"/>
-               </BorderPane.margin>
-            </Label>
-         </top>
-         <center>
-            <Button fx:id="customerButton" mnemonicParsing="false" text="Customer Panel" BorderPane.alignment="CENTER">
-               <BorderPane.margin>
-                  <Insets bottom="10.0"/>
-               </BorderPane.margin>
-            </Button>
-         </center>
-      </BorderPane>
+       <ImageView fitHeight="680.0" fitWidth="931.0">
+           <image>
+               <Image url="@../../data/pic/mainBackGround.jpg"/>
+           </image>
+       </ImageView>
+       <Button fx:id="customerButton" layoutX="111.0" layoutY="180.0" mnemonicParsing="false" prefHeight="69.0"
+               prefWidth="200.0" text="Customer Management">
+           <font>
+               <Font name="Arial Bold" size="13.0"/>
+           </font>
+           <effect>
+               <InnerShadow height="12.0" radius="5.5" width="12.0"/>
+           </effect>
+       </Button>
+       <Button layoutX="111.0" layoutY="329.0" mnemonicParsing="false" prefHeight="69.0" prefWidth="200.0"
+               text="Room Management">
+           <font>
+               <Font name="Arial Bold" size="13.0"/>
+           </font>
+           <effect>
+               <InnerShadow height="12.0" radius="5.5" width="12.0"/>
+           </effect>
+       </Button>
+       <Button layoutX="111.0" layoutY="474.0" mnemonicParsing="false" prefHeight="69.0" prefWidth="200.0"
+               text="Report">
+           <font>
+               <Font name="Arial Bold" size="13.0"/>
+           </font>
+           <effect>
+               <InnerShadow height="12.0" radius="5.5" width="12.0"/>
+           </effect>
+       </Button>
+       <ImageView fitHeight="403.0" fitWidth="475.0" layoutX="385.0" layoutY="170.0" pickOnBounds="true"
+                  preserveRatio="true">
+           <image>
+               <Image url="@../../data/pic/mainFrontPic.jpg"/>
+           </image>
+       </ImageView>
    </children>
-</GridPane>
+</Pane>
