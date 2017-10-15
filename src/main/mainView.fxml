@@ -18,7 +18,7 @@
    <children>
        <ImageView fitHeight="680.0" fitWidth="931.0">
            <image>
-               <Image url="@../../data/pic/mainBackGround.jpg"/>
+               <Image url="@mainBackGround.jpg"/>
            </image>
        </ImageView>
        <Button fx:id="customerButton" layoutX="111.0" layoutY="180.0" mnemonicParsing="false" prefHeight="69.0"
@@ -48,10 +48,10 @@
                <InnerShadow height="12.0" radius="5.5" width="12.0"/>
            </effect>
        </Button>
-       <ImageView fitHeight="403.0" fitWidth="475.0" layoutX="385.0" layoutY="170.0" pickOnBounds="true"
-                  preserveRatio="true">
+       <ImageView fx:id="frontPicImageView" fitHeight="403.0" fitWidth="475.0" layoutX="385.0" layoutY="170.0"
+                  pickOnBounds="true" preserveRatio="true">
            <image>
-               <Image url="@../../data/pic/mainFrontPic.jpg"/>
+               <Image url="@mainFrontPic.jpg"/>
            </image>
        </ImageView>
    </children>

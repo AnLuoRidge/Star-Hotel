@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.fxml.Initializable;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.Callback;
@@ -25,6 +26,9 @@ public class mainViewController implements Initializable {
 
     @FXML
     private Button customerButton;
+
+//    @FXML
+//    private ImageView frontPicImageView;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
