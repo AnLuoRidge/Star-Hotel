@@ -38,7 +38,7 @@ public class CustomerInfoViewController {
     private TextField surnameTextField;
 
     @FXML
-    private TextField surburbTextField;
+    private TextField suburbTextField;
 
     @FXML
     private RadioButton femaleRadioButton;
@@ -76,11 +76,22 @@ public class CustomerInfoViewController {
 
         this.confirmButton.setOnAction(
 
-                // TODO: check all the fields are filled.
+                // TODO: transfer them to model
                 event -> {
+                    // TODO: check all the fields are filled.
                     ArrayList inputs = new ArrayList();
+
                     firstNameTextField.getText();
                     surnameTextField.getText();
+                    femaleRadioButton.isSelected();
+                    maleRadioButton.isSelected();
+                    postalCodeTextField.getText();
+                    contactNumTextField.getText();
+                    stateChoiceBox.getValue();
+                    suburbTextField.getText();
+                    addressTextField.getText();
+                    defaulterButton.isSelected();
+                    frequenterButton.isSelected();
                     System.out.println(stateChoiceBox.getValue());
                     System.out.println(postalCodeTextField.getText());
                     System.out.println("Touch confirm");

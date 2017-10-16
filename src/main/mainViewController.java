@@ -27,11 +27,21 @@ public class mainViewController implements Initializable {
     @FXML
     private Button customerButton;
 
+    @FXML
+    private Button reportButton;
+
+    @FXML
+    private Button roomManagementButton;
+
+
 //    @FXML
 //    private ImageView frontPicImageView;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        roomManagementButton.setDisable(true);
+        reportButton.setDisable(true);
+
         customerButton.setOnAction(
                 event -> {
 

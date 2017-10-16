@@ -30,8 +30,8 @@
                <InnerShadow height="12.0" radius="5.5" width="12.0"/>
            </effect>
        </Button>
-       <Button layoutX="111.0" layoutY="329.0" mnemonicParsing="false" prefHeight="69.0" prefWidth="200.0"
-               text="Room Management">
+       <Button fx:id="roomManagementButton" layoutX="111.0" layoutY="329.0" mnemonicParsing="false" prefHeight="69.0"
+               prefWidth="200.0" text="Room Management">
            <font>
                <Font name="Arial Bold" size="13.0"/>
            </font>
@@ -39,8 +39,8 @@
                <InnerShadow height="12.0" radius="5.5" width="12.0"/>
            </effect>
        </Button>
-       <Button layoutX="111.0" layoutY="474.0" mnemonicParsing="false" prefHeight="69.0" prefWidth="200.0"
-               text="Report">
+       <Button fx:id="reportButton" layoutX="111.0" layoutY="474.0" mnemonicParsing="false" prefHeight="69.0"
+               prefWidth="200.0" text="Report">
            <font>
                <Font name="Arial Bold" size="13.0"/>
            </font>

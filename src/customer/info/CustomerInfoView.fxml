@@ -32,7 +32,7 @@
         <RadioButton fx:id="maleRadioButton" layoutX="220.0" layoutY="130.0" mnemonicParsing="false" text="M"/>
         <RadioButton fx:id="femaleRadioButton" layoutX="317.0" layoutY="130.0" mnemonicParsing="false" text="F"/>
         <TextField fx:id="addressTextField" layoutX="250.0" layoutY="223.0"/>
-        <TextField fx:id="surburbTextField" layoutX="250.0" layoutY="267.0"/>
+        <TextField fx:id="suburbTextField" layoutX="250.0" layoutY="267.0"/>
         <TextField fx:id="postalCodeTextField" layoutX="250.0" layoutY="352.0"/>
         <ChoiceBox fx:id="stateChoiceBox" layoutX="250.0" layoutY="307.0" prefWidth="150.0"/>
         <CheckBox layoutX="157.0" layoutY="423.0" mnemonicParsing="false" text="Defaulter"/>
