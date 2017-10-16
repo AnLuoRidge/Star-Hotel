@@ -11,8 +11,60 @@ or [higher version](https://stackoverflow.com/questions/28808130/where-exactly-c
 
 Code Style: [link](https://github.com/Dreampie/java-style-guide/blob/master/README.md)
 
+Git Tool: SourceTree
+
 ## TO-DO
-[Disable some days from DatePicker](http://o7planning.org/en/11085/javafx-datepicker-tutorial)
+
+### DB
+
+1. 把 SQLite 包嵌进我们的工程
+
+2. SQL JDBC 建表
+
+3. 写 DAO 层
+
+### UI 
+
+1. 三个页面的向前切换（现在只能单窗口逐层进入，不能返回）
+
+2. 客户列表控件（双击条目跳转选做）
+
+3. 把表单提交的数据获取和填充逻辑写完。
+
+4. 控件重布局
+
+5. 主页的背景及 CSS 皮肤选择
+
+### Midware
+
+1. 对接各控件的数据源和DAO
+
+2. 表单的数据验证（可选）
+
+## DB Scheme
+MySQL
+
+int customer_id
+
+String first_name
+
+String surname
+
+bool gender
+
+String contact_num
+
+String address
+
+String suburb
+
+String state
+
+String postal code
+
+bool defaulter
+
+bool frequenter
 
 ## Tutorials
 
@@ -54,6 +106,8 @@ Generate controller in IDEA: go to Scene Builder and click View > Show Sample Co
 
 [Reactive](http://www.oschina.net/translate/building-reactive-systems-with-javafx)
 
+[Disable some days from DatePicker](http://o7planning.org/en/11085/javafx-datepicker-tutorial)
+
 ## Samples
 [Official](http://docs.oracle.com/javase/8/javafx/get-started-tutorial/get_start_apps.htm#JFXST804)
 
@@ -73,4 +127,3 @@ Generate controller in IDEA: go to Scene Builder and click View > Show Sample Co
 
 ## markdown
 https://github.com/guodongxiaren/README
-
