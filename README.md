@@ -14,14 +14,14 @@ Code Style: [link](https://github.com/Dreampie/java-style-guide/blob/master/READ
 Git Tool: SourceTree
 
 ## TO-DO
-
+ 
 ### DB
 
-1. 把 SQLite 包嵌进我们的工程
+- 把 SQLite 包嵌进我们的工程
 
-2. SQL JDBC 建表
+- SQL JDBC 建表
 
-3. 写 DAO 层
+- 写 DAO 层
 
 ### UI 
 

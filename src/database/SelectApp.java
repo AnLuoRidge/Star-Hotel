@@ -2,26 +2,11 @@ package database;
 import java.sql.*;
 
 public class SelectApp {
-    private Connection connect() {
-        try {
-            Class.forName("org.sqlite.JDBC");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        String url = "jdbc:sqlite:E:/StarHotel.db";
-        Connection conn = null;
-        try {
-            conn = DriverManager.getConnection(url);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return conn;
-    }
 
     public void selectAll(int customer_id){
         String selectrow = "SELECT customer_id, first_name, surname, gender, contact_num, address, suburb, state, postal_code, defaulter, frequenter FROM Customer WHERE customer_id = ?";
 
-        try (Connection conn = this.connect();
+        try (Connection conn = ConnectDB.connect();
              PreparedStatement Spstmt = conn.prepareStatement(selectrow)){
                 Spstmt.setInt(1, customer_id);
                 ResultSet rs = Spstmt.executeQuery();
@@ -49,9 +34,9 @@ public class SelectApp {
     public void selectPart(){
         String selectpartrow = "SELECT customer_id, first_name, surname, gender, contact_num FROM Customer";
 
-        try (Connection conn = this.connect();
-            Statement Sstmt = conn.createStatement();
-            ResultSet rs = Sstmt.executeQuery(selectpartrow)){
+        try (Connection conn = ConnectDB.connect();
+             Statement Sstmt = conn.createStatement();
+             ResultSet rs = Sstmt.executeQuery(selectpartrow)){
             // loop through the result set
             while (rs.next()) {
                 System.out.println(
@@ -68,11 +53,11 @@ public class SelectApp {
     }
 
 
-    public static void main(String[] args) {
-        SelectApp app = new SelectApp();
-        app.selectAll(1710170001);
-        System.out.println("Part table");
-        app.selectPart();
-    }
+//    public static void main(String[] args) {
+//        SelectApp app = new SelectApp();
+//        app.selectAll(1710170001);
+//        System.out.println("Part table");
+//        app.selectPart();
+//    }
 
 }
