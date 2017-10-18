@@ -13,7 +13,7 @@ public interface CustomerDAO {
 
     public void delete(int id);
 
-    public CustomerModel search(int customerID);
+    public ObservableList<CustomerModel> search(String customerID);
 
 //    //添加方法
 //    public void add(Person p)throws SQLException;

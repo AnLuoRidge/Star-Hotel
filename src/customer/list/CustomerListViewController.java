@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
@@ -49,6 +50,8 @@ public class CustomerListViewController implements Initializable {
 
     @FXML
     private TableColumn<CustomerModel, String> genderColumn;
+    @FXML
+    private TextField searchTextField;
 
     public void refresh() {
         CustomerDAO dao = new CustomerDAOImpl();
@@ -67,6 +70,14 @@ public class CustomerListViewController implements Initializable {
 
 //        customerIdColumn.setCellValueFactory(cellData -> cellData.getValue().customerIDProperty());
 
+        searchButton.setOnAction(
+                event -> {
+                    CustomerDAO dao = new CustomerDAOImpl();
+                    ObservableList<CustomerModel> results = dao.search(searchTextField.getText().toString());
+                    customerTableView.setItems(results);
+                    customerTableView.refresh();
+                }
+        );
 
         addButton.setOnAction(
                 event -> openInfoViewAs(OpenMode.ADD)
