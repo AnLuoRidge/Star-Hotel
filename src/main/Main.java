@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.fxml.FXMLLoader;
+import database.CreateTable;
 
 public class Main extends Application {
 
@@ -21,6 +22,7 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
+        CreateTable.createNewTable();
         launch(args);
     }
 }
