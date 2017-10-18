@@ -1,6 +1,8 @@
 package customer.list;
 
 import customer.info.CustomerInfoViewController;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,6 +10,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -15,6 +20,9 @@ import javafx.stage.Window;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import dao.*;
+import models.CustomerModel;
 
 public class CustomerListViewController implements Initializable {
 
@@ -29,9 +37,21 @@ public class CustomerListViewController implements Initializable {
 
     @FXML
     private Button searchButton;
+    @FXML
+    private TableView customerTableView;
+    @FXML
+    private TableColumn<CustomerModel, Integer> customerIdColumn;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+
+        CustomerDAO dao = new CustomerDAOImpl();
+        customerTableView.setItems(dao.showAll());
+        customerIdColumn.setCellValueFactory(new PropertyValueFactory<>("customerID"));
+//        customerIdColumn.setCellValueFactory(cellData -> cellData.getValue().customerIDProperty());
+
+
         addButton.setOnAction(
                 event -> openInfoViewAs(OpenMode.ADD)
         );

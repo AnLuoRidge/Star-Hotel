@@ -1,34 +1,46 @@
 package models;
 
 import database.*;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.stage.Stage;
 
 public class CustomerModel {
-    private int customerID;
-    private String firstName;
+    private final SimpleIntegerProperty customerID = new SimpleIntegerProperty();
+    private SimpleStringProperty firstName = new SimpleStringProperty();
     private String surname;
     private boolean gender;
     private String contactNum;
     private String address;
     private String suburb;
     private State state;
-    private String postalCode;
+    private int postalCode;
     private boolean defaulter;
     private boolean frequenter;
 
+
     public int getCustomerID() {
-        return customerID;
+        return customerID.get();
     }
 
     public void setCustomerID(int customerID) {
-        this.customerID = customerID;
+        this.customerID.set(customerID);
+    }
+
+    public SimpleIntegerProperty customerIDProperty() {
+        return customerID;
     }
 
     public String getFirstName() {
-        return firstName;
+        return firstName.get();
     }
 
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        this.firstName.set(firstName);
+    }
+
+    public SimpleStringProperty firstNameProperty() {
+        return firstName;
     }
 
     public String getSurname() {
@@ -75,15 +87,16 @@ public class CustomerModel {
         return state;
     }
 
-    public void setState(State state) {
-        this.state = state;
+    public void setState(String state) {
+        State input = State.valueOf(state);
+        this.state = input;
     }
 
-    public String getPostalCode() {
+    public int getPostalCode() {
         return postalCode;
     }
 
-    public void setPostalCode(String postalCode) {
+    public void setPostalCode(int postalCode) {
         this.postalCode = postalCode;
     }
 
@@ -127,3 +140,6 @@ public class CustomerModel {
 
 
 }
+
+
+/**/
