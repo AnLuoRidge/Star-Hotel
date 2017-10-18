@@ -120,7 +120,7 @@ public class CustomerListViewController implements Initializable {
     private void openInfoViewAs(OpenMode om) {
 
         try {
-// Load the fxml file and create a new stage for the popup dialog.
+            // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/customer/info/CustomerInfoView.fxml"));
             Pane page = (Pane) loader.load();
@@ -129,7 +129,6 @@ public class CustomerListViewController implements Initializable {
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Add");
             dialogStage.initModality(Modality.WINDOW_MODAL);
-//                          dialogStage.initOwner(primaryStage);
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
 

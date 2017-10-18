@@ -19,7 +19,6 @@ public class CustomerDAOImpl implements CustomerDAO {
 
     @Override
     public void insert(CustomerModel cm) {
-        // TODO: check before insert...increment
         String insertRow = "INSERT INTO Customer(first_name, surname, gender, contact_num, address, suburb, state, postal_code, defaulter, frequenter) \n"
                 + "VALUES(?,?,?,?,?,?,?,?,?,?)";
         try (Connection conn = ConnectDB.connect();
@@ -68,11 +67,11 @@ public class CustomerDAOImpl implements CustomerDAO {
         String deleterow = "DELETE FROM Customer WHERE customer_id = ?";
 
         try (Connection conn = ConnectDB.connect();
-             PreparedStatement Dpstmt = conn.prepareStatement(deleterow)) {
+             PreparedStatement ps = conn.prepareStatement(deleterow)) {
             // set the corresponding param
-            Dpstmt.setInt(1, id);
+            ps.setInt(1, id);
             // execute the delete statement
-            Dpstmt.executeUpdate();
+            ps.executeUpdate();
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -82,7 +81,6 @@ public class CustomerDAOImpl implements CustomerDAO {
 
     @Override
     public ObservableList<CustomerModel> search(String keyword) {
-//        Integer id = Integer.parseInt(customerID);
         String selectrow = "SELECT customer_id, first_name, surname, gender, contact_num, address, suburb, state, postal_code, defaulter, frequenter FROM Customer WHERE customer_id LIKE ? OR first_name LIKE ? OR surname LIKE ?";
         ObservableList<CustomerModel> resultList = FXCollections.observableArrayList();
 
