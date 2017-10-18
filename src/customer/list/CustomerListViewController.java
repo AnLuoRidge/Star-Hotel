@@ -73,8 +73,12 @@ public class CustomerListViewController implements Initializable {
         searchButton.setOnAction(
                 event -> {
                     CustomerDAO dao = new CustomerDAOImpl();
-                    ObservableList<CustomerModel> results = dao.search(searchTextField.getText().toString());
-                    customerTableView.setItems(results);
+                    if (!searchTextField.getText().isEmpty()) {
+                        ObservableList<CustomerModel> results = dao.search(searchTextField.getText().toString());
+                        customerTableView.setItems(results);
+                    } else {
+                        refresh();
+                    }
                     customerTableView.refresh();
                 }
         );
