@@ -9,7 +9,6 @@ import database.CreateTable;
 
 public class Main extends Application {
 
-    // TODO: relative path of jar
     @Override
     public void start(Stage primaryStage) throws Exception {
 

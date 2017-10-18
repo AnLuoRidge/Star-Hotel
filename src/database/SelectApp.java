@@ -33,19 +33,7 @@ public class SelectApp {
                 cus.setFrequenter(rs.getBoolean("frequenter"));
 
                 resultList.add(cus);
-//                System.out.println(
-//                        rs.getInt("customer_id") +  "\t" +
-//                                rs.getString("first_name") + "\t" +
-//                                rs.getString("surname") + "\t" +
-//                                rs.getBoolean("gender") + "\t" +
-//                                rs.getString("contact_num") + "\t" +
-//                                rs.getString("address") + "\t" +
-//                                rs.getString("suburb") + "\t" +
-//                                rs.getString("state") + "\t" +
-//                                rs.getInt("postal_code") + "\t" +
-//                                rs.getBoolean("defaulter") + "\t" +
-//                                rs.getBoolean("frequenter") + "\t"
-//                );
+
                 System.out.println(cus.getCustomerID());
             }
 
