@@ -2,6 +2,7 @@ package database;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,6 +17,7 @@ public class SelectApp {
         try (Connection conn = ConnectDB.connect();
              PreparedStatement Spstmt = conn.prepareStatement(selectrow)) {
             ResultSet rs = Spstmt.executeQuery();
+            System.out.println("\n---------- ID List ----------\n");
 
             // loop through the result set
             while (rs.next()) {
