@@ -9,7 +9,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="930.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<Pane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+      minWidth="-Infinity" prefHeight="680.0" prefWidth="930.0" xmlns="http://javafx.com/javafx/8"
+      fx:controller="customer.list.CustomerListViewController">
    <children>
       <ImageView fitHeight="686.0" fitWidth="938.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -39,7 +41,8 @@
          </effect>
       </Button>
       <TextField layoutX="61.0" layoutY="55.0" prefHeight="33.0" prefWidth="435.0" />
-      <Button fx:id="addCustomerButton" layoutX="671.0" layoutY="211.0" mnemonicParsing="false" prefHeight="69.0" prefWidth="177.0" text="Add Customer">
+      <Button fx:id="addButton" layoutX="671.0" layoutY="211.0" mnemonicParsing="false" prefHeight="69.0"
+              prefWidth="177.0" text="Add Customer">
          <font>
             <Font name="Arial Bold" size="13.0" />
          </font>
@@ -47,7 +50,8 @@
             <InnerShadow />
          </effect>
       </Button>
-      <Button fx:id="editCustomerButton" layoutX="671.0" layoutY="298.0" mnemonicParsing="false" prefHeight="69.0" prefWidth="177.0" text="Edit Customer">
+      <Button fx:id="editButton" layoutX="671.0" layoutY="298.0" mnemonicParsing="false" prefHeight="69.0"
+              prefWidth="177.0" text="Edit Customer">
          <font>
             <Font name="Arial Bold" size="13.0" />
          </font>

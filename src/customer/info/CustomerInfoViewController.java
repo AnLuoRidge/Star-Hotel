@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 
+import dao.*;
+
 public class CustomerInfoViewController {
 
     @FXML
@@ -51,6 +53,8 @@ public class CustomerInfoViewController {
 
     @FXML
     private ChoiceBox stateChoiceBox; // no <?> !!!!
+
+    public boolean isAdd;
 
     /*
     * NSW|New South Wales
@@ -95,6 +99,9 @@ public class CustomerInfoViewController {
                     System.out.println(stateChoiceBox.getValue());
                     System.out.println(postalCodeTextField.getText());
                     System.out.println("Touch confirm");
+
+                    CustomerDAO dao = new CustomerDAOImpl();
+                    // dao.insert();
                 }
 
         );
