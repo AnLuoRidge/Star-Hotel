@@ -86,7 +86,7 @@ public class CustomerInfoViewController {
                 event -> {
                     // TODO: Validation
                     CustomerModel newCustomer = new CustomerModel();
-//
+
                     newCustomer.setFirstName(firstNameTextField.getText());
                     newCustomer.setSurname(surnameTextField.getText());
                     newCustomer.setContactNum(contactNumTextField.getText());

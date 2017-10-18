@@ -13,34 +13,59 @@ Code Style: [link](https://github.com/Dreampie/java-style-guide/blob/master/READ
 
 Git Tool: SourceTree
 
-## TO-DO
- 
-### DB
+* Add
+``` java
+CustomerModel newCustomer = new CustomerModel();
 
-- 把 SQLite 包嵌进我们的工程
+newCustomer.setFirstName(firstNameTextField.getText());
+newCustomer.setSurname(surnameTextField.getText());
+newCustomer.setContactNum(contactNumTextField.getText());
+newCustomer.setGender(maleRadioButton.isSelected());
+newCustomer.setFrequenter(defaulterCheckBox.isSelected());
+newCustomer.setDefaulter(frequenterCheckBox.isSelected());
+if (!postalCodeTextField.getText().isEmpty()) {
+    newCustomer.setPostalCode(Integer.parseInt(postalCodeTextField.getText()));
+}
+newCustomer.setSuburb(suburbTextField.getText());
+newCustomer.setAddress(addressTextField.getText());
+if (stateChoiceBox.getValue() != null) {
+    newCustomer.setState(stateChoiceBox.getValue().toString());
+}
 
-- SQL JDBC 建表
+CustomerDAO dao = new CustomerDAOImpl();
 
-- 写 DAO 层
+if (om.equals(OpenMode.ADD)) {
+    dao.insert(newCustomer);
+} else if (om.equals(OpenMode.EDIT)) {
+    newCustomer.setCustomerID(customerBuffer.getCustomerID());
+    dao.update(newCustomer);
+}
+```
+Add(DAO)
+``` java
 
-### UI 
-
-1. 三个页面的向前切换（现在只能单窗口逐层进入，不能返回）
-
-2. 客户列表控件（双击条目跳转选做）
-
-3. 把表单提交的数据获取和填充逻辑写完。
-
-4. 控件重布局
-
-5. 主页的背景及 CSS 皮肤选择
-
-### Midware
-
-1. 对接各控件的数据源和DAO
-
-2. 表单的数据验证（可选）
-
+    public void insert(CustomerModel cm) {
+        // TODO: check before insert...increment
+        String insertRow = "INSERT INTO Customer(first_name, surname, gender, contact_num, address, suburb, state, postal_code, defaulter, frequenter) \n"
+                + "VALUES(?,?,?,?,?,?,?,?,?,?)";
+        try (Connection conn = ConnectDB.connect();
+             PreparedStatement pstmt = conn.prepareStatement(insertRow)) {
+            pstmt.setString(1, cm.getFirstName());
+            pstmt.setString(2, cm.getSurname());
+            pstmt.setBoolean(3, cm.getGender() == "Male");
+            pstmt.setString(4, cm.getContactNum());
+            pstmt.setString(5, cm.getAddress());
+            pstmt.setString(6, cm.getSuburb());
+            pstmt.setString(7, cm.getState());
+            pstmt.setInt(8, cm.getPostalCode());
+            pstmt.setBoolean(9, cm.isDefaulter());
+            pstmt.setBoolean(10, cm.isFrequenter());
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+```
 ## DB Scheme
 MySQL
 
