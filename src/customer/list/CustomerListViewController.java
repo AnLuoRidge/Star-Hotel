@@ -55,9 +55,12 @@ public class CustomerListViewController implements Initializable {
     @FXML
     private TextField searchTextField;
 
+    private ObservableList<CustomerModel> dataSource;
+
     public void refresh() {
         CustomerDAO dao = new CustomerDAOImpl();
-        customerTableView.setItems(dao.showAll());
+        dataSource = dao.showAll();
+        customerTableView.setItems(dataSource);
     }
 
     @Override
@@ -97,8 +100,9 @@ public class CustomerListViewController implements Initializable {
                 event -> {
 //                    System.out.println(customerTableView.selectionModelProperty().getValue().toString());
                     int selectedIndex = customerTableView.getSelectionModel().getSelectedIndex();
+                    CustomerDAO dao = new CustomerDAOImpl();
+                    dao.delete(dataSource.get(selectedIndex).getCustomerID());
                     customerTableView.getItems().remove(selectedIndex);
-
 //                    customerTableView.getSelectionModel().getSelectedCells().re;
                 }
         );
