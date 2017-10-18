@@ -1,11 +1,17 @@
 package customer.info;
 
+import customer.list.CustomerListViewController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import customer.list.CustomerListViewController.OpenMode;
 import dao.*;
+import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import models.CustomerModel;
@@ -57,7 +63,6 @@ public class CustomerInfoViewController {
     public OpenMode om;
 
     private CustomerModel customerBuffer;
-
     /*
     * NSW|New South Wales
     * QLD|Queensland
@@ -69,6 +74,7 @@ public class CustomerInfoViewController {
     * NT|Northern Territory
     * */
     final private ObservableList stateList = FXCollections.observableArrayList("NSW", "QLD", "SA", "TAS", "VIC", "WA", "ACT", "NT");
+    public CustomerListViewController superViewController;
 
     @FXML
     public void initialize() {
@@ -77,11 +83,8 @@ public class CustomerInfoViewController {
 
         confirmButton.setOnAction(
 
-
-
-                // TODO: transfer them to model
                 event -> {
-                    // TODO: check all the fields are filled.
+                    // TODO: Validation
                     CustomerModel newCustomer = new CustomerModel();
 //
                     newCustomer.setFirstName(firstNameTextField.getText());
@@ -105,7 +108,7 @@ public class CustomerInfoViewController {
                         newCustomer.setCustomerID(customerBuffer.getCustomerID());
                         dao.update(newCustomer);
                     }
-
+                    superViewController.refresh();
                     closeStage();
                 }
 
@@ -147,4 +150,6 @@ public class CustomerInfoViewController {
         frequenterCheckBox.setSelected(customerBuffer.isFrequenter());
         postalCodeTextField.setText(Integer.toString(customerBuffer.getPostalCode()));
     }
+
+
 }

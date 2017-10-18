@@ -119,7 +119,6 @@ public class CustomerListViewController implements Initializable {
 
     private void openInfoViewAs(OpenMode om) {
 
-        ObservableList<Window> windows = Window.getWindows();
         try {
 // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
@@ -143,6 +142,7 @@ public class CustomerListViewController implements Initializable {
                 controller.fillData();
             }
             controller.om = om;
+            controller.superViewController = this;
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
