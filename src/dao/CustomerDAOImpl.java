@@ -20,21 +20,21 @@ public class CustomerDAOImpl implements CustomerDAO {
     @Override
     public void insert(CustomerModel cm) {
         // TODO: check before insert...increment
-        String insertRow = "INSERT INTO Customer(customer_id, first_name, surname, gender, contact_num, address, suburb, state, postal_code, defaulter, frequenter) \n"
+        String insertRow = "INSERT INTO Customer(first_name, surname, gender, contact_num, address, suburb, state, postal_code, defaulter, frequenter) \n"
                 + "VALUES(?,?,?,?,?,?,?,?,?,?,?)";
         try (Connection conn = ConnectDB.connect();
              PreparedStatement pstmt = conn.prepareStatement(insertRow)) {
-            pstmt.setNull(1, 0);
-            pstmt.setString(2, cm.getFirstName());
-            pstmt.setString(3, cm.getSurname());
-            pstmt.setBoolean(4, cm.getGender() == "Male");
-            pstmt.setString(5, cm.getContactNum());
-            pstmt.setString(6, cm.getAddress());
-            pstmt.setString(7, cm.getSuburb());
-            pstmt.setString(8, cm.getState());
-            pstmt.setInt(9, cm.getPostalCode());
-            pstmt.setBoolean(10, cm.isDefaulter());
-            pstmt.setBoolean(11, cm.isFrequenter());
+//            pstmt.setNull(1, 0);
+            pstmt.setString(1, cm.getFirstName());
+            pstmt.setString(2, cm.getSurname());
+            pstmt.setBoolean(3, cm.getGender() == "Male");
+            pstmt.setString(4, cm.getContactNum());
+            pstmt.setString(5, cm.getAddress());
+            pstmt.setString(6, cm.getSuburb());
+            pstmt.setString(7, cm.getState());
+            pstmt.setInt(8, cm.getPostalCode());
+            pstmt.setBoolean(9, cm.isDefaulter());
+            pstmt.setBoolean(10, cm.isFrequenter());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -43,7 +43,24 @@ public class CustomerDAOImpl implements CustomerDAO {
 
     @Override
     public void update(CustomerModel cm) {
-
+        String updateRow = "UPDATE Customer SET first_name = ?, surname = ?, gender = ?, contact_num = ?, address = ?, suburb = ?, state = ?, postal_code = ?, defaulter = ?, frequenter = ? WHERE customer_id = ?";
+        try (Connection conn = ConnectDB.connect();
+             PreparedStatement pstmt = conn.prepareStatement(updateRow)) {
+            pstmt.setString(1, cm.getFirstName());
+            pstmt.setString(2, cm.getSurname());
+            pstmt.setBoolean(3, cm.getGender() == "Male");
+            pstmt.setString(4, cm.getContactNum());
+            pstmt.setString(5, cm.getAddress());
+            pstmt.setString(6, cm.getSuburb());
+            pstmt.setString(7, cm.getState());
+            pstmt.setInt(8, cm.getPostalCode());
+            pstmt.setBoolean(9, cm.isDefaulter());
+            pstmt.setBoolean(10, cm.isFrequenter());
+            pstmt.setInt(11, cm.getCustomerID());
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override

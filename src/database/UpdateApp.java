@@ -4,25 +4,7 @@ import java.sql.*;
 public class UpdateApp {
 
     public void update(int customer_id, String first_name, String surname, boolean gender, String contact_num, String address, String suburb, String state, int postal_code, boolean defaulter, boolean frequenter){
-        String updateRow = "UPDATE Customer SET first_name = ?, surname = ?, gender = ?, contact_num = ?, address = ?, suburb = ?, state = ?, postal_code = ?, defaulter = ?, frequenter = ? WHERE customer_id = ?";
-        try (Connection conn = ConnectDB.connect();
-             PreparedStatement Upstmt = conn.prepareStatement(updateRow)) {
-            Upstmt.setInt(11, customer_id);
-            Upstmt.setString(1, first_name);
-            Upstmt.setString(2, surname);
-            Upstmt.setBoolean(3,gender);
-            Upstmt.setString(4,contact_num);
-            Upstmt.setString(5,address);
-            Upstmt.setString(6,suburb);
-            Upstmt.setString(7,state);
-            Upstmt.setInt(8,postal_code);
-            Upstmt.setBoolean(9,defaulter);
-            Upstmt.setBoolean(10,frequenter);
-            Upstmt.executeUpdate();
-        }
-        catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
+
     }
 //    public static void main(String[] args) {
 //

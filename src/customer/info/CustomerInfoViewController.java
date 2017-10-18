@@ -1,19 +1,10 @@
 package customer.info;
 
-import customer.list.CustomerListViewController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.ResourceBundle;
-
 import customer.list.CustomerListViewController.OpenMode;
-
 import dao.*;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -58,7 +49,7 @@ public class CustomerInfoViewController {
     private Button cancelButton;
 
     @FXML
-    private ChoiceBox stateChoiceBox; // no <?> !!!!
+    private ChoiceBox stateChoiceBox;
 
 
     public OpenMode om;
@@ -77,17 +68,14 @@ public class CustomerInfoViewController {
     * */
     final private ObservableList stateList = FXCollections.observableArrayList("NSW", "QLD", "SA", "TAS", "VIC", "WA", "ACT", "NT");
 
-//    final private String[] states = {"NSW", "QLD", "SA", "TAS", "VIC", "WA", "ACT", "NT"};
-//    final private ObservableList statesList = FXCollections.observableArrayList(Arrays.asList(states));
-
     @FXML
     public void initialize() {
         stateChoiceBox.setItems(stateList);
-//        stateChoiceBox.getItems().addAll(FXCollections.observableArrayList(Arrays.asList(states))); // same
-//        stateChoiceBox.getItems().addAll("dd", "dc");
 
 
-        this.confirmButton.setOnAction(
+        confirmButton.setOnAction(
+
+
 
                 // TODO: transfer them to model
                 event -> {
@@ -108,7 +96,16 @@ public class CustomerInfoViewController {
                     }
 
                     CustomerDAO dao = new CustomerDAOImpl();
-                    dao.insert(newCustomer);
+
+                    switch (om) {
+                        case ADD:
+                            dao.insert(newCustomer);
+
+                        case EDIT:
+                            newCustomer.setCustomerID(customerBuffer.getCustomerID());
+                            dao.update(newCustomer);
+                    }
+
                     closeStage();
                 }
 
@@ -122,16 +119,13 @@ public class CustomerInfoViewController {
         maleRadioButton.setToggleGroup(group);
         femaleRadioButton.setToggleGroup(group);
 
-        //stateChoiceBox = new ChoiceBox(FXCollections.observableArrayList("A", "B", "C"));
-//        stateChoiceBox.setItems(FXCollections.observableArrayList(
-//                "A", "B", new Separator(), "C", "D");
-        //)
     }
 
     private void closeStage() {
         ObservableList<Window> windows = Window.getWindows();
         Stage stage = (Stage) windows.get(1);
         stage.close();
+        // TODO: get super controller, refresh
     }
 
 
