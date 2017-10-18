@@ -54,11 +54,11 @@
          <font>
             <Font name="System Bold" size="18.0" />
          </font></Label>
-        <Label layoutX="153.0" layoutY="437.0" text="Postal Code">
+        <Label layoutX="157.0" layoutY="437.0" text="Postal Code">
          <font>
             <Font name="System Bold" size="18.0" />
          </font></Label>
-        <Label layoutX="155.0" layoutY="370.0" prefHeight="23.0" prefWidth="103.0" text="Suburb">
+        <Label layoutX="157.0" layoutY="370.0" prefHeight="23.0" prefWidth="103.0" text="Suburb">
          <font>
             <Font name="System Bold" size="18.0" />
          </font></Label>
@@ -71,7 +71,7 @@
          <font>
             <Font name="System Bold" size="18.0" />
          </font></Label>
-        <RadioButton fx:id="maleRadioButton" layoutX="273.0" layoutY="191.0" mnemonicParsing="false" text="M">
+        <RadioButton fx:id="maleRadioButton" layoutX="290.0" layoutY="191.0" mnemonicParsing="false" text="M">
          <font>
             <Font name="Arial Bold" size="18.0" />
          </font></RadioButton>

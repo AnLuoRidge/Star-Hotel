@@ -10,6 +10,8 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import models.CustomerModel;
 
+import static customer.list.CustomerListViewController.OpenMode.*;
+
 public class CustomerInfoViewController {
 
     @FXML
@@ -97,13 +99,11 @@ public class CustomerInfoViewController {
 
                     CustomerDAO dao = new CustomerDAOImpl();
 
-                    switch (om) {
-                        case ADD:
-                            dao.insert(newCustomer);
-
-                        case EDIT:
-                            newCustomer.setCustomerID(customerBuffer.getCustomerID());
-                            dao.update(newCustomer);
+                    if (om.equals(OpenMode.ADD)) {
+                        dao.insert(newCustomer);
+                    } else if (om.equals(OpenMode.EDIT)) {
+                        newCustomer.setCustomerID(customerBuffer.getCustomerID());
+                        dao.update(newCustomer);
                     }
 
                     closeStage();

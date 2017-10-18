@@ -82,13 +82,14 @@ public class CustomerDAOImpl implements CustomerDAO {
 
     @Override
     public ObservableList<CustomerModel> search(String customerID) {
-        Integer id = Integer.parseInt(customerID);
-        String selectrow = "SELECT customer_id, first_name, surname, gender, contact_num, address, suburb, state, postal_code, defaulter, frequenter FROM Customer WHERE customer_id = ?";
+//        Integer id = Integer.parseInt(customerID);
+        String selectrow = "SELECT customer_id, first_name, surname, gender, contact_num, address, suburb, state, postal_code, defaulter, frequenter FROM Customer WHERE customer_id LIKE ?";
         ObservableList<CustomerModel> resultList = FXCollections.observableArrayList();
 
         try (Connection conn = ConnectDB.connect();
+
              PreparedStatement Spstmt = conn.prepareStatement(selectrow)) {
-            Spstmt.setInt(1, id);
+            Spstmt.setString(1, "%" + customerID + "%");
             ResultSet rs = Spstmt.executeQuery();
             // loop through the result set
             while (rs.next()) {
