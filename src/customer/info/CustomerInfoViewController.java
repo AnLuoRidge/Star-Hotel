@@ -63,6 +63,8 @@ public class CustomerInfoViewController {
 
     public OpenMode om;
 
+    private CustomerModel customerBuffer;
+
     /*
     * NSW|New South Wales
     * QLD|Queensland
@@ -107,7 +109,6 @@ public class CustomerInfoViewController {
 
                     CustomerDAO dao = new CustomerDAOImpl();
                     dao.insert(newCustomer);
-//                    CustomerListViewController.
                     closeStage();
                 }
 
@@ -118,13 +119,9 @@ public class CustomerInfoViewController {
         );
 
         ToggleGroup group = new ToggleGroup();
-//        RadioButton button1 = new RadioButton("select first");
         maleRadioButton.setToggleGroup(group);
         femaleRadioButton.setToggleGroup(group);
-//        maleRadioButton.setSelected(true);
 
-        postalCodeTextField.setText("2007");
-        // postalCodeTextField.getText()
         //stateChoiceBox = new ChoiceBox(FXCollections.observableArrayList("A", "B", "C"));
 //        stateChoiceBox.setItems(FXCollections.observableArrayList(
 //                "A", "B", new Separator(), "C", "D");
@@ -138,10 +135,22 @@ public class CustomerInfoViewController {
     }
 
 
-//    @Override
-//    public void initialize(URL location, ResourceBundle resources) {
-//
-//
-//    }
+    public void setCustomerBuffer(CustomerModel customerBuffer) {
+        this.customerBuffer = customerBuffer;
+    }
 
+    public void fillData() {
+        firstNameTextField.setText(customerBuffer.getFirstName());
+        surnameTextField.setText(customerBuffer.getSurname());
+        femaleRadioButton.setSelected(customerBuffer.getGender() == "Female");
+        maleRadioButton.setSelected(customerBuffer.getGender() == "Male");
+        contactNumTextField.setText(customerBuffer.getContactNum());
+        addressTextField.setText(customerBuffer.getAddress());
+        suburbTextField.setText(customerBuffer.getSuburb());
+        stateChoiceBox.setValue(customerBuffer.getState());
+        postalCodeTextField.setText(Integer.toString(customerBuffer.getPostalCode()));
+        defaulterCheckBox.setSelected(customerBuffer.isDefaulter());
+        frequenterCheckBox.setSelected(customerBuffer.isFrequenter());
+        postalCodeTextField.setText(Integer.toString(customerBuffer.getPostalCode()));
+    }
 }

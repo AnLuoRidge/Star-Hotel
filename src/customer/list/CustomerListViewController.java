@@ -147,6 +147,11 @@ public class CustomerListViewController implements Initializable {
             // Set the person into the controller.
 //
             CustomerInfoViewController controller = loader.getController();
+            if (om.equals(OpenMode.EDIT)) {
+                int selectedIndex = customerTableView.getSelectionModel().getSelectedIndex();
+                controller.setCustomerBuffer(dataSource.get(selectedIndex));
+                controller.fillData();
+            }
             controller.om = om;
 //                controller.isAdd = (om == OpenMode.ADD) ? true : false;
 //                          controller.setDialogStage(dialogStage);
