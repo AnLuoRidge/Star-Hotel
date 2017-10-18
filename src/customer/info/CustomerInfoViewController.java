@@ -93,7 +93,9 @@ public class CustomerInfoViewController {
                     newCustomer.setGender(maleRadioButton.isSelected());
                     newCustomer.setFrequenter(defaulterCheckBox.isSelected());
                     newCustomer.setDefaulter(frequenterCheckBox.isSelected());
-                    newCustomer.setPostalCode(Integer.parseInt(postalCodeTextField.getText()));
+                    if (!postalCodeTextField.getText().isEmpty()) {
+                        newCustomer.setPostalCode(Integer.parseInt(postalCodeTextField.getText()));
+                    }
                     newCustomer.setSuburb(suburbTextField.getText());
                     newCustomer.setAddress(addressTextField.getText());
                     if (stateChoiceBox.getValue() != null) {
