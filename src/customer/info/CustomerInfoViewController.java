@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 
+import customer.list.CustomerListViewController.OpenMode;
+
 import dao.*;
 
 public class CustomerInfoViewController {
@@ -54,7 +56,8 @@ public class CustomerInfoViewController {
     @FXML
     private ChoiceBox stateChoiceBox; // no <?> !!!!
 
-    public boolean isAdd;
+
+    public OpenMode om;
 
     /*
     * NSW|New South Wales
@@ -83,27 +86,33 @@ public class CustomerInfoViewController {
                 // TODO: transfer them to model
                 event -> {
                     // TODO: check all the fields are filled.
-                    ArrayList inputs = new ArrayList();
-
-                    firstNameTextField.getText();
-                    surnameTextField.getText();
-                    femaleRadioButton.isSelected();
-                    maleRadioButton.isSelected();
-                    postalCodeTextField.getText();
-                    contactNumTextField.getText();
-                    stateChoiceBox.getValue();
-                    suburbTextField.getText();
-                    addressTextField.getText();
-                    defaulterButton.isSelected();
-                    frequenterButton.isSelected();
-                    System.out.println(stateChoiceBox.getValue());
-                    System.out.println(postalCodeTextField.getText());
-                    System.out.println("Touch confirm");
+//                    ArrayList inputs = new ArrayList();
+//
+//                    firstNameTextField.getText();
+//                    surnameTextField.getText();
+//                    femaleRadioButton.isSelected();
+//                    maleRadioButton.isSelected();
+//                    postalCodeTextField.getText();
+//                    contactNumTextField.getText();
+//                    stateChoiceBox.getValue();
+//                    suburbTextField.getText();
+//                    addressTextField.getText();
+//                    defaulterButton.isSelected();
+//                    frequenterButton.isSelected();
+//                    System.out.println(stateChoiceBox.getValue());
+//                    System.out.println(postalCodeTextField.getText());
+                    System.out.println(om.toString());
 
                     CustomerDAO dao = new CustomerDAOImpl();
                     // dao.insert();
                 }
 
+        );
+
+        cancelButton.setOnAction(
+                event -> {
+
+                }
         );
 
         ToggleGroup group = new ToggleGroup();
