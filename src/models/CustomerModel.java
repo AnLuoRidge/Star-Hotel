@@ -8,8 +8,8 @@ import javafx.stage.Stage;
 public class CustomerModel {
     private final SimpleIntegerProperty customerID = new SimpleIntegerProperty();
     private SimpleStringProperty firstName = new SimpleStringProperty();
-    private String surname;
-    private boolean gender;
+    private SimpleStringProperty surname = new SimpleStringProperty();
+    private SimpleStringProperty gender = new SimpleStringProperty();
     private String contactNum;
     private String address;
     private String suburb;
@@ -44,19 +44,31 @@ public class CustomerModel {
     }
 
     public String getSurname() {
-        return surname;
+        return surname.get();
     }
 
     public void setSurname(String surname) {
-        this.surname = surname;
+        this.surname.set(surname);
     }
 
-    public boolean isGender() {
-        return gender;
+    public SimpleStringProperty surnameProperty() {
+        return surname;
+    }
+
+    public String getGender() {
+        return gender.get();
     }
 
     public void setGender(boolean gender) {
-        this.gender = gender;
+        if (gender == true) {
+            this.gender.set("Male");
+        } else {
+            this.gender.set("Female");
+        }
+    }
+
+    public SimpleStringProperty genderProperty() {
+        return gender;
     }
 
     public String getContactNum() {

@@ -41,6 +41,14 @@ public class CustomerListViewController implements Initializable {
     private TableView customerTableView;
     @FXML
     private TableColumn<CustomerModel, Integer> customerIdColumn;
+    @FXML
+    private TableColumn<CustomerModel, String> firstNameColumn;
+
+    @FXML
+    private TableColumn<CustomerModel, String> surnameColumn;
+
+    @FXML
+    private TableColumn<CustomerModel, String> genderColumn;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -49,6 +57,10 @@ public class CustomerListViewController implements Initializable {
         CustomerDAO dao = new CustomerDAOImpl();
         customerTableView.setItems(dao.showAll());
         customerIdColumn.setCellValueFactory(new PropertyValueFactory<>("customerID"));
+        firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        surnameColumn.setCellValueFactory(new PropertyValueFactory<>("surname"));
+        genderColumn.setCellValueFactory(new PropertyValueFactory<>("gender"));
+
 //        customerIdColumn.setCellValueFactory(cellData -> cellData.getValue().customerIDProperty());
 
 
