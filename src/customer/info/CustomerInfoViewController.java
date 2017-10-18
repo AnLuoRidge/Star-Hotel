@@ -79,6 +79,7 @@ public class CustomerInfoViewController {
     @FXML
     public void initialize() {
         stateChoiceBox.setItems(stateList);
+        stateChoiceBox.setValue("NSW");
 
 
         confirmButton.setOnAction(
