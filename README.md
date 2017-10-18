@@ -15,6 +15,9 @@ Git Tool: SourceTree
 
 Database: SQLite
 
+# Usage
+search empty to show all the data.
+
 # Code Samples
 
 * Create (Controller)
