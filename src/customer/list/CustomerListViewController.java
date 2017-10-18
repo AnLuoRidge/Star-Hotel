@@ -1,6 +1,8 @@
 package customer.list;
 
 import customer.info.CustomerInfoViewController;
+import dao.CustomerDAO;
+import dao.CustomerDAOImpl;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,14 +14,15 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import models.CustomerModel;
+
 import java.net.URL;
 import java.util.ResourceBundle;
-import dao.*;
-import models.CustomerModel;
 
 public class CustomerListViewController implements Initializable {
 
@@ -37,7 +40,7 @@ public class CustomerListViewController implements Initializable {
     @FXML
     Button deleteButton;
     @FXML
-    private TableView customerTableView;
+    private TableView<CustomerModel> customerTableView;
     @FXML
     private TableColumn<CustomerModel, Integer> customerIdColumn;
     @FXML
@@ -73,12 +76,20 @@ public class CustomerListViewController implements Initializable {
                 event -> {
                     CustomerDAO dao = new CustomerDAOImpl();
                     if (!searchTextField.getText().isEmpty()) {
-                        ObservableList<CustomerModel> results = dao.search(searchTextField.getText().toString());
+                        ObservableList<CustomerModel> results = dao.search(searchTextField.getText());
                         customerTableView.setItems(results);
                     } else {
                         refresh();
                     }
                     customerTableView.refresh();
+                }
+        );
+
+        searchTextField.setOnKeyPressed(
+                event -> {
+                    if (event.getCode() == KeyCode.ENTER) {
+                        searchButton.fire();
+                    }
                 }
         );
 
@@ -108,9 +119,8 @@ public class CustomerListViewController implements Initializable {
                         root = FXMLLoader.load(getClass().getResource("/main/mainView.fxml"));
                         Scene scene = new Scene(root);
                         stage.setScene(scene);
-                    } catch (Exception nn) {
-
-
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
                     }
                 }
         );
@@ -123,7 +133,7 @@ public class CustomerListViewController implements Initializable {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/customer/info/CustomerInfoView.fxml"));
-            Pane page = (Pane) loader.load();
+            Pane page = loader.load();
 
             // Create the dialog Stage.
             Stage dialogStage = new Stage();
@@ -147,9 +157,8 @@ public class CustomerListViewController implements Initializable {
             dialogStage.showAndWait();
 
 
-        } catch (Exception nn) {
-
-
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 

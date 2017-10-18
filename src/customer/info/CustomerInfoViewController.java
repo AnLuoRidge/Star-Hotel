@@ -1,68 +1,50 @@
 package customer.info;
 
 import customer.list.CustomerListViewController;
+import customer.list.CustomerListViewController.OpenMode;
+import dao.CustomerDAO;
+import dao.CustomerDAOImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import customer.list.CustomerListViewController.OpenMode;
-import dao.*;
-import javafx.scene.layout.Pane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import models.CustomerModel;
 
-import static customer.list.CustomerListViewController.OpenMode.*;
 
 public class CustomerInfoViewController {
 
+    final private ObservableList<String> stateList = FXCollections.observableArrayList("NSW", "QLD", "SA", "TAS", "VIC", "WA", "ACT", "NT");
+    public CustomerListViewController superViewController;
+    public OpenMode om;
     @FXML
     private TextField addressTextField;
-
     @FXML
     private CheckBox defaulterCheckBox;
-
     @FXML
     private TextField contactNumTextField;
-
     @FXML
     private CheckBox frequenterCheckBox;
-
     @FXML
     private TextField postalCodeTextField;
-
     @FXML
     private TextField firstNameTextField;
-
     @FXML
     private Button confirmButton;
-
     @FXML
     private TextField surnameTextField;
-
     @FXML
     private TextField suburbTextField;
-
     @FXML
     private RadioButton femaleRadioButton;
-
     @FXML
     private RadioButton maleRadioButton;
-
     @FXML
     private Button cancelButton;
-
     @FXML
-    private ChoiceBox stateChoiceBox;
+    private ChoiceBox<String> stateChoiceBox;
 
-
-    public OpenMode om;
-
-    private CustomerModel customerBuffer;
     /*
     * NSW|New South Wales
     * QLD|Queensland
@@ -73,8 +55,7 @@ public class CustomerInfoViewController {
     * ACT|Australian Capital Territory
     * NT|Northern Territory
     * */
-    final private ObservableList stateList = FXCollections.observableArrayList("NSW", "QLD", "SA", "TAS", "VIC", "WA", "ACT", "NT");
-    public CustomerListViewController superViewController;
+    private CustomerModel customerBuffer;
 
     @FXML
     public void initialize() {
@@ -100,7 +81,7 @@ public class CustomerInfoViewController {
                     newCustomer.setSuburb(suburbTextField.getText());
                     newCustomer.setAddress(addressTextField.getText());
                     if (stateChoiceBox.getValue() != null) {
-                        newCustomer.setState(stateChoiceBox.getValue().toString());
+                        newCustomer.setState(stateChoiceBox.getValue());
                     }
 
                     CustomerDAO dao = new CustomerDAOImpl();
@@ -124,7 +105,6 @@ public class CustomerInfoViewController {
         ToggleGroup group = new ToggleGroup();
         maleRadioButton.setToggleGroup(group);
         femaleRadioButton.setToggleGroup(group);
-
     }
 
     private void closeStage() {
@@ -142,8 +122,8 @@ public class CustomerInfoViewController {
     public void fillData() {
         firstNameTextField.setText(customerBuffer.getFirstName());
         surnameTextField.setText(customerBuffer.getSurname());
-        femaleRadioButton.setSelected(customerBuffer.getGender() == "Female");
-        maleRadioButton.setSelected(customerBuffer.getGender() == "Male");
+        femaleRadioButton.setSelected(customerBuffer.getGender().equals("Female"));
+        maleRadioButton.setSelected(customerBuffer.getGender().equals("Male"));
         contactNumTextField.setText(customerBuffer.getContactNum());
         addressTextField.setText(customerBuffer.getAddress());
         suburbTextField.setText(customerBuffer.getSuburb());

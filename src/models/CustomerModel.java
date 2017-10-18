@@ -1,11 +1,10 @@
 package models;
 
-import database.*;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.stage.Stage;
 
 public class CustomerModel {
+
     private final SimpleIntegerProperty customerID = new SimpleIntegerProperty();
     private SimpleStringProperty firstName = new SimpleStringProperty();
     private SimpleStringProperty surname = new SimpleStringProperty();
@@ -17,7 +16,6 @@ public class CustomerModel {
     private int postalCode;
     private boolean defaulter;
     private boolean frequenter;
-
 
     public int getCustomerID() {
         return customerID.get();
@@ -60,7 +58,7 @@ public class CustomerModel {
     }
 
     public void setGender(boolean gender) {
-        if (gender == true) {
+        if (gender) {
             this.gender.set("Male");
         } else {
             this.gender.set("Female");
@@ -100,8 +98,7 @@ public class CustomerModel {
     }
 
     public void setState(String state) {
-        State input = State.valueOf(state);
-        this.state = input;
+        this.state = State.valueOf(state);
     }
 
     public int getPostalCode() {
@@ -143,15 +140,4 @@ public class CustomerModel {
     public enum State {
         NSW, QLD, SA, TAS, VIC, WA, ACT, NT
     }
-
-
-//    public Exception save () {
-//
-//    }
-
-
-
 }
-
-
-/**/
