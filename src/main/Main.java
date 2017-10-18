@@ -1,5 +1,7 @@
 package main;
 
+import dao.CustomerDAO;
+import dao.CustomerDAOImpl;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -23,15 +25,15 @@ public class Main extends Application {
 
 
         CreateTable.createNewTable();
-        InsertApp testInsert = new InsertApp();
-        testInsert.insert(1710170001, "Cheng", "Zhu", true, "0450421907", "14/39 Cowper St", "Parramatta", "NSW", 2150, false, true);
-        testInsert.insert(1199665827, "Alex", "Zhu", true, "0450421907", "14/39 Cowper St", "Parramatta", "NSW", 2150, false, true);
-        testInsert.insert(1199993628, "Miyo", "Zhu", true, "0450421907", "14/39 Cowper St", "Parramatta", "NSW", 2150, false, true);
-        testInsert.insert(1195743622, "Hessler", "Button", true, "0450421907", "14/39 Cowper St", "Parramatta", "NSW", 2150, false, true);
-        testInsert.insert(1113621346, "Roge", "Zhu", true, "0450421907", "14/39 Cowper St", "Parramatta", "NSW", 2150, false, true);
-        testInsert.insert(1166773624, "Henry", "Zhu", true, "0450421907", "14/39 Cowper St", "Parramatta", "NSW", 2150, false, true);
-        testInsert.insert(1197669725, "Alice", "Zhu", true, "0450421907", "14/39 Cowper St", "Parramatta", "NSW", 2150, false, true);
-        testInsert.insert(1375787626, "Richard", "Zhu", true, "0450421907", "14/39 Cowper St", "Parramatta", "NSW", 2150, false, true);
+        CustomerDAO dao = new CustomerDAOImpl();
+//        dao.insert(1710170001, "Cheng", "Zhu", true, "0450421907", "14/39 Cowper St", "Parramatta", "NSW", 2150, false, true);
+//        testInsert.insert(1199665827, "Alex", "Zhu", true, "0450421907", "14/39 Cowper St", "Parramatta", "NSW", 2150, false, true);
+//        testInsert.insert(1199993628, "Miyo", "Zhu", true, "0450421907", "14/39 Cowper St", "Parramatta", "NSW", 2150, false, true);
+//        testInsert.insert(1195743622, "Hessler", "Button", true, "0450421907", "14/39 Cowper St", "Parramatta", "NSW", 2150, false, true);
+//        testInsert.insert(1113621346, "Roge", "Zhu", true, "0450421907", "14/39 Cowper St", "Parramatta", "NSW", 2150, false, true);
+//        testInsert.insert(1166773624, "Henry", "Zhu", true, "0450421907", "14/39 Cowper St", "Parramatta", "NSW", 2150, false, true);
+//        testInsert.insert(1197669725, "Alice", "Zhu", true, "0450421907", "14/39 Cowper St", "Parramatta", "NSW", 2150, false, true);
+//        testInsert.insert(1375787626, "Richard", "Zhu", true, "0450421907", "14/39 Cowper St", "Parramatta", "NSW", 2150, false, true);
         System.out.println("Show");
         SelectApp app = new SelectApp();
         app.selectAll();

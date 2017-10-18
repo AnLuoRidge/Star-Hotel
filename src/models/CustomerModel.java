@@ -95,8 +95,8 @@ public class CustomerModel {
         this.suburb = suburb;
     }
 
-    public State getState() {
-        return state;
+    public String getState() {
+        return state.toString();
     }
 
     public void setState(String state) {
@@ -140,7 +140,7 @@ public class CustomerModel {
 * NT|Northern Territory
 * */
 
-    enum State {
+    public enum State {
         NSW, QLD, SA, TAS, VIC, WA, ACT, NT
     }
 

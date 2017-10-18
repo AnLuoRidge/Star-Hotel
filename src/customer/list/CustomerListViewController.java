@@ -50,12 +50,16 @@ public class CustomerListViewController implements Initializable {
     @FXML
     private TableColumn<CustomerModel, String> genderColumn;
 
+    public void refresh() {
+        CustomerDAO dao = new CustomerDAOImpl();
+        customerTableView.setItems(dao.showAll());
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
 
-        CustomerDAO dao = new CustomerDAOImpl();
-        customerTableView.setItems(dao.showAll());
+        refresh();
         customerIdColumn.setCellValueFactory(new PropertyValueFactory<>("customerID"));
         firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         surnameColumn.setCellValueFactory(new PropertyValueFactory<>("surname"));

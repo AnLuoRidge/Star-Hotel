@@ -1,5 +1,6 @@
 package customer.info;
 
+import customer.list.CustomerListViewController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -14,6 +15,9 @@ import java.util.ResourceBundle;
 import customer.list.CustomerListViewController.OpenMode;
 
 import dao.*;
+import javafx.stage.Stage;
+import javafx.stage.Window;
+import models.CustomerModel;
 
 public class CustomerInfoViewController {
 
@@ -21,13 +25,13 @@ public class CustomerInfoViewController {
     private TextField addressTextField;
 
     @FXML
-    private RadioButton defaulterButton;
+    private CheckBox defaulterCheckBox;
 
     @FXML
     private TextField contactNumTextField;
 
     @FXML
-    private RadioButton frequenterButton;
+    private CheckBox frequenterCheckBox;
 
     @FXML
     private TextField postalCodeTextField;
@@ -86,33 +90,31 @@ public class CustomerInfoViewController {
                 // TODO: transfer them to model
                 event -> {
                     // TODO: check all the fields are filled.
-//                    ArrayList inputs = new ArrayList();
+                    CustomerModel newCustomer = new CustomerModel();
 //
-//                    firstNameTextField.getText();
-//                    surnameTextField.getText();
-//                    femaleRadioButton.isSelected();
-//                    maleRadioButton.isSelected();
-//                    postalCodeTextField.getText();
-//                    contactNumTextField.getText();
-//                    stateChoiceBox.getValue();
-//                    suburbTextField.getText();
-//                    addressTextField.getText();
-//                    defaulterButton.isSelected();
-//                    frequenterButton.isSelected();
-//                    System.out.println(stateChoiceBox.getValue());
-//                    System.out.println(postalCodeTextField.getText());
-                    System.out.println(om.toString());
+                    newCustomer.setFirstName(firstNameTextField.getText());
+                    newCustomer.setSurname(surnameTextField.getText());
+                    newCustomer.setContactNum(contactNumTextField.getText());
+                    newCustomer.setGender(maleRadioButton.isSelected());
+                    newCustomer.setFrequenter(defaulterCheckBox.isSelected());
+                    newCustomer.setDefaulter(frequenterCheckBox.isSelected());
+                    newCustomer.setPostalCode(Integer.parseInt(postalCodeTextField.getText()));
+                    newCustomer.setSuburb(suburbTextField.getText());
+                    newCustomer.setAddress(addressTextField.getText());
+                    if (stateChoiceBox.getValue() != null) {
+                        newCustomer.setState(stateChoiceBox.getValue().toString());
+                    }
 
                     CustomerDAO dao = new CustomerDAOImpl();
-                    // dao.insert();
+                    dao.insert(newCustomer);
+//                    CustomerListViewController.
+                    closeStage();
                 }
 
         );
 
         cancelButton.setOnAction(
-                event -> {
-
-                }
+                event -> closeStage()
         );
 
         ToggleGroup group = new ToggleGroup();
@@ -128,6 +130,13 @@ public class CustomerInfoViewController {
 //                "A", "B", new Separator(), "C", "D");
         //)
     }
+
+    private void closeStage() {
+        ObservableList<Window> windows = Window.getWindows();
+        Stage stage = (Stage) windows.get(1);
+        stage.close();
+    }
+
 
 //    @Override
 //    public void initialize(URL location, ResourceBundle resources) {
