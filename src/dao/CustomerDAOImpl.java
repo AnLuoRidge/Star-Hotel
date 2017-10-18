@@ -21,7 +21,7 @@ public class CustomerDAOImpl implements CustomerDAO {
     public void insert(CustomerModel cm) {
         // TODO: check before insert...increment
         String insertRow = "INSERT INTO Customer(first_name, surname, gender, contact_num, address, suburb, state, postal_code, defaulter, frequenter) \n"
-                + "VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+                + "VALUES(?,?,?,?,?,?,?,?,?,?)";
         try (Connection conn = ConnectDB.connect();
              PreparedStatement pstmt = conn.prepareStatement(insertRow)) {
 //            pstmt.setNull(1, 0);
