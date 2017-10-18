@@ -39,6 +39,8 @@ public class CustomerListViewController implements Initializable {
     @FXML
     private Button searchButton;
     @FXML
+    Button deleteButton;
+    @FXML
     private TableView customerTableView;
     @FXML
     private TableColumn<CustomerModel, Integer> customerIdColumn;
@@ -91,6 +93,15 @@ public class CustomerListViewController implements Initializable {
                 event -> openInfoViewAs(OpenMode.EDIT)
         );
 
+        deleteButton.setOnAction(
+                event -> {
+//                    System.out.println(customerTableView.selectionModelProperty().getValue().toString());
+                    int selectedIndex = customerTableView.getSelectionModel().getSelectedIndex();
+                    customerTableView.getItems().remove(selectedIndex);
+
+//                    customerTableView.getSelectionModel().getSelectedCells().re;
+                }
+        );
         backButton.setOnAction(
                 event -> {
 
