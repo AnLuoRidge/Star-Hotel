@@ -33,10 +33,6 @@ public class mainViewController implements Initializable {
     @FXML
     private Button roomManagementButton;
 
-
-//    @FXML
-//    private ImageView frontPicImageView;
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         roomManagementButton.setDisable(true);
@@ -52,6 +48,7 @@ public class mainViewController implements Initializable {
                         root = FXMLLoader.load(getClass().getResource("/customer/list/CustomerListView.fxml"));
                         Scene scene = new Scene(root);
                         stage.setScene(scene);
+                        stage.setTitle("Customer List");
                     } catch (Exception nn) {
 
                     }
@@ -65,25 +62,3 @@ public class mainViewController implements Initializable {
     }
 
 }
-
-// Change Stage
-/*
- * ObservableList<Stage> stage = FXRobotHelper.getStages();
- * Scene scene = new Scene(FXMLLoader.load(getClass().getResource("FXML.fxml")));
- * stage.get(0).setScene(scene);
- */
-/*
-* 	public PrintController(String code, Stage primaryStage) {
-		this.code = code;
-		this.primaryStage = primaryStage;
-		scene = new Scene(createContent3());
-//		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-
-		 scene.getStylesheets().add(getClass().getResource("application_print.css").toExternalForm());
-		primaryStage.setTitle("提货宝");
-		primaryStage.setFullScreen(true); // 全屏显示
-
-		primaryStage.setScene(scene);
-		primaryStage.show();
-	}
-*/

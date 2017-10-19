@@ -1,56 +1,49 @@
 package customer.info;
 
+import customer.list.CustomerListViewController;
+import customer.list.CustomerListViewController.OpenMode;
+import dao.CustomerDAO;
+import dao.CustomerDAOImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
+import javafx.stage.Window;
+import models.CustomerModel;
 
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.ResourceBundle;
 
 public class CustomerInfoViewController {
 
+    final private ObservableList<String> stateList = FXCollections.observableArrayList("NSW", "QLD", "SA", "TAS", "VIC", "WA", "ACT", "NT");
+    public CustomerListViewController superViewController;
+    public OpenMode om;
     @FXML
     private TextField addressTextField;
-
     @FXML
-    private RadioButton defaulterButton;
-
+    private CheckBox defaulterCheckBox;
     @FXML
     private TextField contactNumTextField;
-
     @FXML
-    private RadioButton frequenterButton;
-
+    private CheckBox frequenterCheckBox;
     @FXML
     private TextField postalCodeTextField;
-
     @FXML
     private TextField firstNameTextField;
-
     @FXML
     private Button confirmButton;
-
     @FXML
     private TextField surnameTextField;
-
     @FXML
     private TextField suburbTextField;
-
     @FXML
     private RadioButton femaleRadioButton;
-
     @FXML
     private RadioButton maleRadioButton;
-
     @FXML
     private Button cancelButton;
-
     @FXML
-    private ChoiceBox stateChoiceBox; // no <?> !!!!
+    private ChoiceBox<String> stateChoiceBox;
 
     /*
     * NSW|New South Wales
@@ -62,61 +55,84 @@ public class CustomerInfoViewController {
     * ACT|Australian Capital Territory
     * NT|Northern Territory
     * */
-    final private ObservableList stateList = FXCollections.observableArrayList("NSW", "QLD", "SA", "TAS", "VIC", "WA", "ACT", "NT");
-
-//    final private String[] states = {"NSW", "QLD", "SA", "TAS", "VIC", "WA", "ACT", "NT"};
-//    final private ObservableList statesList = FXCollections.observableArrayList(Arrays.asList(states));
+    private CustomerModel customerBuffer;
 
     @FXML
     public void initialize() {
         stateChoiceBox.setItems(stateList);
-//        stateChoiceBox.getItems().addAll(FXCollections.observableArrayList(Arrays.asList(states))); // same
-//        stateChoiceBox.getItems().addAll("dd", "dc");
+        stateChoiceBox.setValue("NSW");
 
 
-        this.confirmButton.setOnAction(
+        confirmButton.setOnAction(
 
-                // TODO: transfer them to model
                 event -> {
-                    // TODO: check all the fields are filled.
-                    ArrayList inputs = new ArrayList();
+                    // TODO: Validation
+                    CustomerModel newCustomer = new CustomerModel();
 
-                    firstNameTextField.getText();
-                    surnameTextField.getText();
-                    femaleRadioButton.isSelected();
-                    maleRadioButton.isSelected();
-                    postalCodeTextField.getText();
-                    contactNumTextField.getText();
-                    stateChoiceBox.getValue();
-                    suburbTextField.getText();
-                    addressTextField.getText();
-                    defaulterButton.isSelected();
-                    frequenterButton.isSelected();
-                    System.out.println(stateChoiceBox.getValue());
-                    System.out.println(postalCodeTextField.getText());
-                    System.out.println("Touch confirm");
+                    newCustomer.setFirstName(firstNameTextField.getText());
+                    newCustomer.setSurname(surnameTextField.getText());
+                    newCustomer.setContactNum(contactNumTextField.getText());
+                    newCustomer.setGender(maleRadioButton.isSelected());
+                    newCustomer.setFrequenter(defaulterCheckBox.isSelected());
+                    newCustomer.setDefaulter(frequenterCheckBox.isSelected());
+                    if (!postalCodeTextField.getText().isEmpty()) {
+                        newCustomer.setPostalCode(Integer.parseInt(postalCodeTextField.getText()));
+                    }
+                    newCustomer.setSuburb(suburbTextField.getText());
+                    newCustomer.setAddress(addressTextField.getText());
+                    if (stateChoiceBox.getValue() != null) {
+                        newCustomer.setState(stateChoiceBox.getValue());
+                    }
+
+                    CustomerDAO dao = new CustomerDAOImpl();
+
+                    if (om.equals(OpenMode.ADD)) {
+                        dao.insert(newCustomer);
+                    } else if (om.equals(OpenMode.EDIT)) {
+                        newCustomer.setCustomerID(customerBuffer.getCustomerID());
+                        dao.update(newCustomer);
+                    }
+                    superViewController.refresh();
+                    closeStage();
                 }
 
         );
 
+        cancelButton.setOnAction(
+                event -> closeStage()
+        );
+
         ToggleGroup group = new ToggleGroup();
-//        RadioButton button1 = new RadioButton("select first");
         maleRadioButton.setToggleGroup(group);
         femaleRadioButton.setToggleGroup(group);
-//        maleRadioButton.setSelected(true);
-
-        postalCodeTextField.setText("2007");
-        // postalCodeTextField.getText()
-        //stateChoiceBox = new ChoiceBox(FXCollections.observableArrayList("A", "B", "C"));
-//        stateChoiceBox.setItems(FXCollections.observableArrayList(
-//                "A", "B", new Separator(), "C", "D");
-        //)
     }
 
-//    @Override
-//    public void initialize(URL location, ResourceBundle resources) {
-//
-//
-//    }
+    private void closeStage() {
+        ObservableList<Window> windows = Window.getWindows();
+        Stage stage = (Stage) windows.get(1);
+        stage.close();
+        // TODO: get super controller, refresh
+    }
+
+
+    public void setCustomerBuffer(CustomerModel customerBuffer) {
+        this.customerBuffer = customerBuffer;
+    }
+
+    public void fillData() {
+        firstNameTextField.setText(customerBuffer.getFirstName());
+        surnameTextField.setText(customerBuffer.getSurname());
+        femaleRadioButton.setSelected(customerBuffer.getGender().equals("Female"));
+        maleRadioButton.setSelected(customerBuffer.getGender().equals("Male"));
+        contactNumTextField.setText(customerBuffer.getContactNum());
+        addressTextField.setText(customerBuffer.getAddress());
+        suburbTextField.setText(customerBuffer.getSuburb());
+        stateChoiceBox.setValue(customerBuffer.getState());
+        postalCodeTextField.setText(Integer.toString(customerBuffer.getPostalCode()));
+        defaulterCheckBox.setSelected(customerBuffer.isDefaulter());
+        frequenterCheckBox.setSelected(customerBuffer.isFrequenter());
+        postalCodeTextField.setText(Integer.toString(customerBuffer.getPostalCode()));
+    }
+
 
 }

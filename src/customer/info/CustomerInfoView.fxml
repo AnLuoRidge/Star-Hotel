@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
@@ -8,34 +10,86 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="572.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8"
-            fx:controller="customer.info.CustomerInfoViewController">
+<AnchorPane prefHeight="680.0" prefWidth="930.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="customer.info.CustomerInfoViewController">
     <children>
-        <Label layoutX="130.0" layoutY="130.0" text="Gender"/>
-        <Label layoutX="130.0" layoutY="77.0" text="First Name"/>
-        <Label layoutX="318.0" layoutY="77.0" text="Surname"/>
-        <TextField fx:id="firstNameTextField" layoutX="210.0" layoutY="72.0" prefHeight="27.0" prefWidth="102.0"/>
-        <TextField fx:id="surnameTextField" layoutX="384.0" layoutY="72.0" prefHeight="27.0" prefWidth="134.0"/>
-        <Label layoutX="130.0" layoutY="175.0" text="Contact Number"/>
-        <TextField fx:id="contactNumTextField" layoutX="250.0" layoutY="170.0"/>
-        <Button fx:id="confirmButton" layoutX="171.0" layoutY="467.0" mnemonicParsing="false" text="Confirm"/>
-        <Button fx:id="cancelButton" layoutX="364.0" layoutY="467.0" mnemonicParsing="false" text="Cancel"/>
-        <Label layoutX="130.0" layoutY="228.0" text="Address"/>
-        <Label layoutX="130.0" layoutY="357.0" text="Postal Code"/>
-        <Label layoutX="130.0" layoutY="272.0" text="Suburb"/>
-        <Label layoutX="210.0" layoutY="26.0" text="Customer Information">
+      <ImageView fitHeight="680.0" fitWidth="977.0" layoutX="1.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@customerInfoBackGround.png" />
+         </image>
+      </ImageView>
+        <Label layoutX="157.0" layoutY="191.0" text="Gender *">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font></Label>
+        <Label layoutX="157.0" layoutY="133.0" text="First Name *">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font></Label>
+        <Label layoutX="500.0" layoutY="133.0" prefHeight="24.0" prefWidth="134.0" text="Surname *">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font></Label>
+        <TextField fx:id="firstNameTextField" layoutX="290.0" layoutY="132.0" prefHeight="27.0" prefWidth="170.0"/>
+        <TextField fx:id="surnameTextField" layoutX="606.0" layoutY="132.0" prefHeight="27.0" prefWidth="170.0" />
+        <Label layoutX="157.0" layoutY="251.0" text="Phone *">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font></Label>
+        <TextField fx:id="contactNumTextField" layoutX="290.0" layoutY="249.0" prefHeight="27.0" prefWidth="216.0"/>
+        <Button fx:id="confirmButton" layoutX="291.0" layoutY="548.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="128.0" text="Confirm">
+         <font>
+            <Font name="Arial Bold" size="18.0" />
+         </font>
+         <effect>
+            <InnerShadow />
+         </effect></Button>
+        <Button fx:id="cancelButton" layoutX="484.0" layoutY="548.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="120.0" text="Cancel">
+         <font>
+            <Font name="Arial Bold" size="18.0" />
+         </font>
+         <effect>
+            <InnerShadow />
+         </effect></Button>
+        <Label layoutX="157.0" layoutY="309.0" text="Address">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font></Label>
+        <Label layoutX="157.0" layoutY="437.0" text="Postal Code">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font></Label>
+        <Label layoutX="157.0" layoutY="370.0" prefHeight="23.0" prefWidth="103.0" text="Suburb">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font></Label>
+        <Label layoutX="296.0" layoutY="34.0" text="Customer Information" underline="true">
             <font>
-                <Font size="20.0"/>
+                <Font name="Arial Bold" size="36.0" />
             </font>
         </Label>
-        <Label layoutX="130.0" layoutY="312.0" prefHeight="0.0" prefWidth="33.0" text="State"/>
-        <RadioButton fx:id="maleRadioButton" layoutX="220.0" layoutY="130.0" mnemonicParsing="false" text="M"/>
-        <RadioButton fx:id="femaleRadioButton" layoutX="317.0" layoutY="130.0" mnemonicParsing="false" text="F"/>
-        <TextField fx:id="addressTextField" layoutX="250.0" layoutY="223.0"/>
-        <TextField fx:id="suburbTextField" layoutX="250.0" layoutY="267.0"/>
-        <TextField fx:id="postalCodeTextField" layoutX="250.0" layoutY="352.0"/>
-        <ChoiceBox fx:id="stateChoiceBox" layoutX="250.0" layoutY="307.0" prefWidth="150.0"/>
-        <CheckBox layoutX="157.0" layoutY="423.0" mnemonicParsing="false" text="Defaulter"/>
-        <CheckBox layoutX="327.0" layoutY="423.0" mnemonicParsing="false" text="Frequenter"/>
+        <Label layoutX="502.0" layoutY="369.0" prefHeight="24.0" prefWidth="99.0" text="State">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font></Label>
+        <RadioButton fx:id="maleRadioButton" layoutX="290.0" layoutY="191.0" mnemonicParsing="false" text="M">
+         <font>
+            <Font name="Arial Bold" size="18.0" />
+         </font></RadioButton>
+        <RadioButton fx:id="femaleRadioButton" layoutX="401.0" layoutY="191.0" mnemonicParsing="false" text="F">
+         <font>
+            <Font name="Arial Bold" size="18.0" />
+         </font></RadioButton>
+        <TextField fx:id="addressTextField" layoutX="290.0" layoutY="307.0" prefHeight="27.0" prefWidth="484.0"/>
+        <TextField fx:id="suburbTextField" layoutX="290.0" layoutY="369.0" prefHeight="27.0" prefWidth="161.0"/>
+        <TextField fx:id="postalCodeTextField" layoutX="290.0" layoutY="435.0" prefHeight="27.0" prefWidth="161.0"/>
+        <ChoiceBox fx:id="stateChoiceBox" layoutX="571.0" layoutY="369.0" prefWidth="150.0" />
+        <CheckBox fx:id="defaulterCheckBox" layoutX="488.0" layoutY="499.0" mnemonicParsing="false" text="Defaulter">
+         <font>
+            <Font name="Arial Bold" size="18.0" />
+         </font></CheckBox>
+        <CheckBox fx:id="frequenterCheckBox" layoutX="291.0" layoutY="499.0" mnemonicParsing="false" text="Frequenter">
+         <font>
+            <Font name="Arial Bold" size="18.0" />
+         </font></CheckBox>
     </children>
 </AnchorPane>

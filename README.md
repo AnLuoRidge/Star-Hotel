@@ -13,33 +13,195 @@ Code Style: [link](https://github.com/Dreampie/java-style-guide/blob/master/READ
 
 Git Tool: SourceTree
 
-## TO-DO
+Database: SQLite
 
-### DB
+# Usage
+search empty to show all the data.
 
-1. 把 SQLite 包嵌进我们的工程
+# Code Samples
 
-2. SQL JDBC 建表
+* Create (Controller)
+``` java
+     CustomerModel newCustomer = new CustomerModel();
 
-3. 写 DAO 层
+     newCustomer.setFirstName(firstNameTextField.getText());
+     newCustomer.setSurname(surnameTextField.getText());
+     newCustomer.setContactNum(contactNumTextField.getText());
+     newCustomer.setGender(maleRadioButton.isSelected());
+     newCustomer.setFrequenter(defaulterCheckBox.isSelected());
+     newCustomer.setDefaulter(frequenterCheckBox.isSelected());
+     if (!postalCodeTextField.getText().isEmpty()) {
+         newCustomer.setPostalCode(Integer.parseInt(postalCodeTextField.getText()));
+     }
+     newCustomer.setSuburb(suburbTextField.getText());
+     newCustomer.setAddress(addressTextField.getText());
+     if (stateChoiceBox.getValue() != null) {
+         newCustomer.setState(stateChoiceBox.getValue().toString());
+     }
 
-### UI 
+     CustomerDAO dao = new CustomerDAOImpl();
 
-1. 三个页面的向前切换（现在只能单窗口逐层进入，不能返回）
+     if (om.equals(OpenMode.ADD)) {
+         dao.insert(newCustomer);
+     } else if (om.equals(OpenMode.EDIT)) {
+         newCustomer.setCustomerID(customerBuffer.getCustomerID());
+         dao.update(newCustomer);
+     }
+```
+* Create(DAO)
+``` java
 
-2. 客户列表控件（双击条目跳转选做）
+    public void insert(CustomerModel cm) {
+        String insertRow = "INSERT INTO Customer(first_name, surname, gender, contact_num, address, suburb, state, postal_code, defaulter, frequenter) \n"
+                + "VALUES(?,?,?,?,?,?,?,?,?,?)";
+        try (Connection conn = ConnectDB.connect();
+             PreparedStatement pstmt = conn.prepareStatement(insertRow)) {
+            pstmt.setString(1, cm.getFirstName());
+            pstmt.setString(2, cm.getSurname());
+            pstmt.setBoolean(3, cm.getGender() == "Male");
+            pstmt.setString(4, cm.getContactNum());
+            pstmt.setString(5, cm.getAddress());
+            pstmt.setString(6, cm.getSuburb());
+            pstmt.setString(7, cm.getState());
+            pstmt.setInt(8, cm.getPostalCode());
+            pstmt.setBoolean(9, cm.isDefaulter());
+            pstmt.setBoolean(10, cm.isFrequenter());
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+```
+* Read  (Controller)
+```java
+   event -> {
+       CustomerDAO dao = new CustomerDAOImpl();
+       if (!searchTextField.getText().isEmpty()) {
+           ObservableList<CustomerModel> results = dao.search(searchTextField.getText().toString());
+           customerTableView.setItems(results);
+       } else {
+           refresh();
+       }
+       customerTableView.refresh();
+   }
+```
+* Read (DAO)
+```java
+public ObservableList<CustomerModel> search(String keyword) {
+    String selectrow = "SELECT customer_id, first_name, surname, gender, contact_num, address, suburb, state, postal_code, defaulter, frequenter FROM Customer WHERE customer_id LIKE ? OR first_name LIKE ? OR surname LIKE ?";
+    ObservableList<CustomerModel> resultList = FXCollections.observableArrayList();
 
-3. 把表单提交的数据获取和填充逻辑写完。
+    try (Connection conn = ConnectDB.connect();
 
-4. 控件重布局
+         PreparedStatement Spstmt = conn.prepareStatement(selectrow)) {
+        Spstmt.setString(1, "%" + keyword + "%");
+        Spstmt.setString(2, "%" + keyword + "%");
+        Spstmt.setString(3, "%" + keyword + "%");
 
-5. 主页的背景及 CSS 皮肤选择
+        ResultSet rs = Spstmt.executeQuery();
+        // loop through the result set
+        while (rs.next()) {
+            CustomerModel cus = new CustomerModel();
+            cus.setCustomerID(rs.getInt("customer_id"));
+            cus.setFirstName(rs.getString("first_name"));
+            cus.setSurname(rs.getString("surname"));
+            cus.setGender(rs.getBoolean("gender"));
+            cus.setContactNum(rs.getString("contact_num"));
+            cus.setAddress(rs.getString("address"));
+            cus.setSuburb(rs.getString("suburb"));
+            cus.setState(rs.getString("state"));
+            cus.setPostalCode(rs.getInt("postal_code"));
+            cus.setDefaulter(rs.getBoolean("defaulter"));
+            cus.setFrequenter(rs.getBoolean("frequenter"));
 
-### Midware
+            resultList.add(cus);
+        }
+    } catch (SQLException e) {
+        System.out.println(e.getMessage());
+    }
+    return resultList;
+}
+```
 
-1. 对接各控件的数据源和DAO
+* Update (Controller)
+```java
+    CustomerModel newCustomer = new CustomerModel();
 
-2. 表单的数据验证（可选）
+    newCustomer.setFirstName(firstNameTextField.getText());
+    newCustomer.setSurname(surnameTextField.getText());
+    newCustomer.setContactNum(contactNumTextField.getText());
+    newCustomer.setGender(maleRadioButton.isSelected());
+    newCustomer.setFrequenter(defaulterCheckBox.isSelected());
+    newCustomer.setDefaulter(frequenterCheckBox.isSelected());
+    if (!postalCodeTextField.getText().isEmpty()) {
+newCustomer.setPostalCode(Integer.parseInt(postalCodeTextField.getText()));
+    }
+    newCustomer.setSuburb(suburbTextField.getText());
+    newCustomer.setAddress(addressTextField.getText());
+    if (stateChoiceBox.getValue() != null) {
+newCustomer.setState(stateChoiceBox.getValue().toString());
+    }
+
+    CustomerDAO dao = new CustomerDAOImpl();
+
+    if (om.equals(OpenMode.ADD)) {
+dao.insert(newCustomer);
+    } else if (om.equals(OpenMode.EDIT)) {
+newCustomer.setCustomerID(customerBuffer.getCustomerID());
+dao.update(newCustomer);
+    }
+```
+* Update (DAO)
+```java
+    public void update(CustomerModel cm) {
+        String updateRow = "UPDATE Customer SET first_name = ?, surname = ?, gender = ?, contact_num = ?, address = ?, suburb = ?, state = ?, postal_code = ?, defaulter = ?, frequenter = ? WHERE customer_id = ?";
+        try (Connection conn = ConnectDB.connect();
+             PreparedStatement pstmt = conn.prepareStatement(updateRow)) {
+            pstmt.setString(1, cm.getFirstName());
+            pstmt.setString(2, cm.getSurname());
+            pstmt.setBoolean(3, cm.getGender() == "Male");
+            pstmt.setString(4, cm.getContactNum());
+            pstmt.setString(5, cm.getAddress());
+            pstmt.setString(6, cm.getSuburb());
+            pstmt.setString(7, cm.getState());
+            pstmt.setInt(8, cm.getPostalCode());
+            pstmt.setBoolean(9, cm.isDefaulter());
+            pstmt.setBoolean(10, cm.isFrequenter());
+            pstmt.setInt(11, cm.getCustomerID());
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+```
+
+* Delete (Controller)
+
+```java
+event -> {
+    int selectedIndex = customerTableView.getSelectionModel().getSelectedIndex();
+    CustomerDAO dao = new CustomerDAOImpl();
+    dao.delete(dataSource.get(selectedIndex).getCustomerID());
+    customerTableView.getItems().remove(selectedIndex);
+}
+```
+* Delete (DAO)
+```java
+    public void delete(int id) {
+        String deleterow = "DELETE FROM Customer WHERE customer_id = ?";
+
+        try (Connection conn = ConnectDB.connect();
+             PreparedStatement ps = conn.prepareStatement(deleterow)) {
+            // set the corresponding param
+            ps.setInt(1, id);
+            // execute the delete statement
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+```
 
 ## DB Scheme
 MySQL
