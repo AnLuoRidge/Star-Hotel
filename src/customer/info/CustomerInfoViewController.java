@@ -101,11 +101,7 @@ public class CustomerInfoViewController {
 
     private void saveData() {
 
-        boolean filledAll = validation(validateFirstName(firstNameTextField.getText()),
-                validateSurname(surnameTextField.getText()));
-        filledAll = validation(filledAll, validateContactNum(contactNumTextField.getText()));
-
-        if (filledAll == false) {
+        if (!validation()) {
             return;
         }
 
@@ -141,8 +137,20 @@ public class CustomerInfoViewController {
         closeStage();
     }
 
+
     private boolean validateFirstName(String str) {
-        return !str.isEmpty();
+        if (!str.isEmpty()) {
+            return true;
+        } else {
+            firstNameTextField.set
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Warning");
+            alert.setHeaderText("Missing first name!");
+//            alert.setContentText("");
+            alert.showAndWait();
+            return false;
+        }
+
     }
 
     private boolean validateSurname(String str) {
@@ -154,8 +162,12 @@ public class CustomerInfoViewController {
         return !str.isEmpty();
     }
 
-    private boolean validation(boolean val1, boolean val2) {
-        return val1 && val2 == true;
+    private boolean validation() {
+        boolean validated = validateFirstName(firstNameTextField.getText()) &&
+                validateSurname(surnameTextField.getText());
+        validated = validated && validateContactNum(contactNumTextField.getText());
+
+        return validated;
     }
 
 }
