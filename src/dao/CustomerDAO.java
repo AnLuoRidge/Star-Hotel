@@ -5,14 +5,14 @@ import models.CustomerModel;
 
 public interface CustomerDAO {
 
-    public ObservableList<CustomerModel> showAll();
+    ObservableList<CustomerModel> showAll();
 
-    public void insert(CustomerModel cm);
+    void insert(CustomerModel ctm);
 
-    public void update(CustomerModel cm);
+    void update(CustomerModel ctm);
 
-    public void delete(int id);
+    void delete(int id);
 
-    public ObservableList<CustomerModel> search(String keyword);
+    ObservableList<CustomerModel> search(String keyword);
 
 }

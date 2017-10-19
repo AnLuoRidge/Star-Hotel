@@ -45,32 +45,21 @@ public class CustomerListViewController implements Initializable {
     private TableColumn<CustomerModel, Integer> customerIdColumn;
     @FXML
     private TableColumn<CustomerModel, String> firstNameColumn;
-
     @FXML
     private TableColumn<CustomerModel, String> surnameColumn;
-
     @FXML
     private TableColumn<CustomerModel, String> genderColumn;
+    @FXML
+    private TableColumn<CustomerModel, String> contactNumberColumn;
     @FXML
     private TextField searchTextField;
 
     private ObservableList<CustomerModel> dataSource;
 
-    public void refresh() {
-        CustomerDAO dao = new CustomerDAOImpl();
-        dataSource = dao.showAll();
-        customerTableView.setItems(dataSource);
-    }
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-
-        refresh();
-        customerIdColumn.setCellValueFactory(new PropertyValueFactory<>("customerID"));
-        firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-        surnameColumn.setCellValueFactory(new PropertyValueFactory<>("surname"));
-        genderColumn.setCellValueFactory(new PropertyValueFactory<>("gender"));
+        initTableView();
 
         searchButton.setOnAction(
                 event -> {
@@ -109,6 +98,7 @@ public class CustomerListViewController implements Initializable {
                     customerTableView.getItems().remove(selectedIndex);
                 }
         );
+
         backButton.setOnAction(
                 event -> {
 
@@ -125,6 +115,26 @@ public class CustomerListViewController implements Initializable {
                 }
         );
 
+    }
+
+    public void refresh() {
+        CustomerDAO dao = new CustomerDAOImpl();
+        dataSource = dao.showAll();
+        customerTableView.setItems(dataSource);
+        customerTableView.refresh();
+    }
+
+    private void initTableView() {
+        customerIdColumn.setCellValueFactory(new PropertyValueFactory<>("customerID"));
+        firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        surnameColumn.setCellValueFactory(new PropertyValueFactory<>("surname"));
+        genderColumn.setCellValueFactory(new PropertyValueFactory<>("gender"));
+        contactNumberColumn.setCellValueFactory(new PropertyValueFactory<>("contactNum"));
+        refresh();
+    }
+
+    public enum OpenMode {
+        ADD, EDIT
     }
 
     private void openInfoViewAs(OpenMode om) {
@@ -160,10 +170,6 @@ public class CustomerListViewController implements Initializable {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-    }
-
-    public enum OpenMode {
-        ADD, EDIT
     }
 }
 

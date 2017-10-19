@@ -9,7 +9,7 @@ public class CustomerModel {
     private SimpleStringProperty firstName = new SimpleStringProperty();
     private SimpleStringProperty surname = new SimpleStringProperty();
     private SimpleStringProperty gender = new SimpleStringProperty();
-    private String contactNum;
+    private SimpleStringProperty contactNum = new SimpleStringProperty();
     private String address;
     private String suburb;
     private State state;
@@ -70,11 +70,15 @@ public class CustomerModel {
     }
 
     public String getContactNum() {
-        return contactNum;
+        return contactNum.get();
     }
 
     public void setContactNum(String contactNum) {
-        this.contactNum = contactNum;
+        this.contactNum.set(contactNum);
+    }
+
+    public SimpleStringProperty contactNumProperty() {
+        return contactNum;
     }
 
     public String getAddress() {

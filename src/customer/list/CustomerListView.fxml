@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.text.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.*?>
 <Pane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
       minWidth="-Infinity" prefHeight="680.0" prefWidth="930.0" xmlns="http://javafx.com/javafx/8"
       fx:controller="customer.list.CustomerListViewController">
@@ -26,6 +23,7 @@
                   <TableColumn fx:id="firstNameColumn" prefWidth="104.0" text="First Name"/>
                   <TableColumn fx:id="surnameColumn" prefWidth="89.0" text="Surname"/>
                   <TableColumn fx:id="genderColumn" prefWidth="89.0" text="Gender"/>
+                  <TableColumn fx:id="contactNumberColumn" prefWidth="146.0" text="Contact Number"/>
               </columns>
             </TableView>
          </children>

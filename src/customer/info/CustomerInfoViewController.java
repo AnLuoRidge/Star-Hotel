@@ -15,6 +15,16 @@ import models.CustomerModel;
 
 public class CustomerInfoViewController {
 
+    /*
+    * NSW|New South Wales
+    * QLD|Queensland
+    * SA|South Australia
+    * TAS|Tasmania
+    * VIC|Victoria
+    * WA|Western Australia
+    * ACT|Australian Capital Territory
+    * NT|Northern Territory
+    * */
     final private ObservableList<String> stateList = FXCollections.observableArrayList("NSW", "QLD", "SA", "TAS", "VIC", "WA", "ACT", "NT");
     public CustomerListViewController superViewController;
     public OpenMode om;
@@ -45,16 +55,6 @@ public class CustomerInfoViewController {
     @FXML
     private ChoiceBox<String> stateChoiceBox;
 
-    /*
-    * NSW|New South Wales
-    * QLD|Queensland
-    * SA|South Australia
-    * TAS|Tasmania
-    * VIC|Victoria
-    * WA|Western Australia
-    * ACT|Australian Capital Territory
-    * NT|Northern Territory
-    * */
     private CustomerModel customerBuffer;
 
     @FXML
@@ -62,41 +62,7 @@ public class CustomerInfoViewController {
         stateChoiceBox.setItems(stateList);
         stateChoiceBox.setValue("NSW");
 
-
-        confirmButton.setOnAction(
-
-                event -> {
-                    // TODO: Validation
-                    CustomerModel newCustomer = new CustomerModel();
-
-                    newCustomer.setFirstName(firstNameTextField.getText());
-                    newCustomer.setSurname(surnameTextField.getText());
-                    newCustomer.setContactNum(contactNumTextField.getText());
-                    newCustomer.setGender(maleRadioButton.isSelected());
-                    newCustomer.setFrequenter(defaulterCheckBox.isSelected());
-                    newCustomer.setDefaulter(frequenterCheckBox.isSelected());
-                    if (!postalCodeTextField.getText().isEmpty()) {
-                        newCustomer.setPostalCode(Integer.parseInt(postalCodeTextField.getText()));
-                    }
-                    newCustomer.setSuburb(suburbTextField.getText());
-                    newCustomer.setAddress(addressTextField.getText());
-                    if (stateChoiceBox.getValue() != null) {
-                        newCustomer.setState(stateChoiceBox.getValue());
-                    }
-
-                    CustomerDAO dao = new CustomerDAOImpl();
-
-                    if (om.equals(OpenMode.ADD)) {
-                        dao.insert(newCustomer);
-                    } else if (om.equals(OpenMode.EDIT)) {
-                        newCustomer.setCustomerID(customerBuffer.getCustomerID());
-                        dao.update(newCustomer);
-                    }
-                    superViewController.refresh();
-                    closeStage();
-                }
-
-        );
+        confirmButton.setOnAction(event -> saveData());
 
         cancelButton.setOnAction(
                 event -> closeStage()
@@ -111,7 +77,6 @@ public class CustomerInfoViewController {
         ObservableList<Window> windows = Window.getWindows();
         Stage stage = (Stage) windows.get(1);
         stage.close();
-        // TODO: get super controller, refresh
     }
 
 
@@ -134,5 +99,63 @@ public class CustomerInfoViewController {
         postalCodeTextField.setText(Integer.toString(customerBuffer.getPostalCode()));
     }
 
+    private void saveData() {
+
+        boolean filledAll = validation(validateFirstName(firstNameTextField.getText()),
+                validateSurname(surnameTextField.getText()));
+        filledAll = validation(filledAll, validateContactNum(contactNumTextField.getText()));
+
+        if (filledAll == false) {
+            return;
+        }
+
+        CustomerModel newCustomer = new CustomerModel();
+
+        newCustomer.setFirstName(firstNameTextField.getText());
+        newCustomer.setSurname(surnameTextField.getText());
+        newCustomer.setGender(maleRadioButton.isSelected());
+        newCustomer.setContactNum(contactNumTextField.getText());
+        newCustomer.setAddress(addressTextField.getText());
+        newCustomer.setSuburb(suburbTextField.getText());
+        if (!stateChoiceBox.getValue().isEmpty()) {
+            newCustomer.setState(stateChoiceBox.getValue());
+        }
+        if (!postalCodeTextField.getText().isEmpty()) {
+            newCustomer.setPostalCode(Integer.parseInt(postalCodeTextField.getText()));
+        }
+        newCustomer.setFrequenter(defaulterCheckBox.isSelected());
+        newCustomer.setDefaulter(frequenterCheckBox.isSelected());
+
+        CustomerDAO dao = new CustomerDAOImpl();
+
+        if (om.equals(OpenMode.ADD)) {
+            dao.insert(newCustomer);
+        }
+
+        if (om.equals(OpenMode.EDIT)) {
+            newCustomer.setCustomerID(customerBuffer.getCustomerID());
+            dao.update(newCustomer);
+        }
+
+        superViewController.refresh();
+        closeStage();
+    }
+
+    private boolean validateFirstName(String str) {
+        return !str.isEmpty();
+    }
+
+    private boolean validateSurname(String str) {
+        return !str.isEmpty();
+    }
+
+    //    private boolean validateGender(boolean male)
+    private boolean validateContactNum(String str) {
+        return !str.isEmpty();
+    }
+
+    private boolean validation(boolean val1, boolean val2) {
+        return val1 && val2 == true;
+    }
 
 }

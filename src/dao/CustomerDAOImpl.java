@@ -1,9 +1,9 @@
 package dao;
 
+import database.ConnectDB;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import models.CustomerModel;
-import database.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,30 +18,25 @@ public class CustomerDAOImpl implements CustomerDAO {
 
         ObservableList<CustomerModel> resultList = FXCollections.observableArrayList();
         try (Connection conn = ConnectDB.connect();
-             PreparedStatement Spstmt = conn.prepareStatement(selectrow)) {
-            ResultSet rs = Spstmt.executeQuery();
-            System.out.println("\n---------- ID List ----------\n");
-
+             PreparedStatement ps = conn.prepareStatement(selectrow)) {
+            ResultSet rs = ps.executeQuery();
             // loop through the result set
             while (rs.next()) {
-                CustomerModel cus = new CustomerModel();
-                cus.setCustomerID(rs.getInt("customer_id"));
-                cus.setFirstName(rs.getString("first_name"));
-                cus.setSurname(rs.getString("surname"));
-                cus.setGender(rs.getBoolean("gender"));
-                cus.setContactNum(rs.getString("contact_num"));
-                cus.setAddress(rs.getString("address"));
-                cus.setSuburb(rs.getString("suburb"));
-                cus.setState(rs.getString("state"));
-                cus.setPostalCode(rs.getInt("postal_code"));
-                cus.setDefaulter(rs.getBoolean("defaulter"));
-                cus.setFrequenter(rs.getBoolean("frequenter"));
+                CustomerModel ctm = new CustomerModel();
+                ctm.setCustomerID(rs.getInt("customer_id"));
+                ctm.setFirstName(rs.getString("first_name"));
+                ctm.setSurname(rs.getString("surname"));
+                ctm.setGender(rs.getBoolean("gender"));
+                ctm.setContactNum(rs.getString("contact_num"));
+                ctm.setAddress(rs.getString("address"));
+                ctm.setSuburb(rs.getString("suburb"));
+                ctm.setState(rs.getString("state"));
+                ctm.setPostalCode(rs.getInt("postal_code"));
+                ctm.setDefaulter(rs.getBoolean("defaulter"));
+                ctm.setFrequenter(rs.getBoolean("frequenter"));
 
-                resultList.add(cus);
-
-                System.out.println(cus.getCustomerID());
+                resultList.add(ctm);
             }
-
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -49,22 +44,21 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
-    public void insert(CustomerModel cm) {
+    public void insert(CustomerModel ctm) {
         String insertRow = "INSERT INTO Customer(first_name, surname, gender, contact_num, address, suburb, state, postal_code, defaulter, frequenter) \n"
                 + "VALUES(?,?,?,?,?,?,?,?,?,?)";
         try (Connection conn = ConnectDB.connect();
              PreparedStatement pstmt = conn.prepareStatement(insertRow)) {
-//            pstmt.setNull(1, 0);
-            pstmt.setString(1, cm.getFirstName());
-            pstmt.setString(2, cm.getSurname());
-            pstmt.setBoolean(3, cm.getGender() == "Male");
-            pstmt.setString(4, cm.getContactNum());
-            pstmt.setString(5, cm.getAddress());
-            pstmt.setString(6, cm.getSuburb());
-            pstmt.setString(7, cm.getState());
-            pstmt.setInt(8, cm.getPostalCode());
-            pstmt.setBoolean(9, cm.isDefaulter());
-            pstmt.setBoolean(10, cm.isFrequenter());
+            pstmt.setString(1, ctm.getFirstName());
+            pstmt.setString(2, ctm.getSurname());
+            pstmt.setBoolean(3, ctm.getGender().equals("Male"));
+            pstmt.setString(4, ctm.getContactNum());
+            pstmt.setString(5, ctm.getAddress());
+            pstmt.setString(6, ctm.getSuburb());
+            pstmt.setString(7, ctm.getState());
+            pstmt.setInt(8, ctm.getPostalCode());
+            pstmt.setBoolean(9, ctm.isDefaulter());
+            pstmt.setBoolean(10, ctm.isFrequenter());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -72,21 +66,21 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
-    public void update(CustomerModel cm) {
+    public void update(CustomerModel ctm) {
         String updateRow = "UPDATE Customer SET first_name = ?, surname = ?, gender = ?, contact_num = ?, address = ?, suburb = ?, state = ?, postal_code = ?, defaulter = ?, frequenter = ? WHERE customer_id = ?";
         try (Connection conn = ConnectDB.connect();
              PreparedStatement pstmt = conn.prepareStatement(updateRow)) {
-            pstmt.setString(1, cm.getFirstName());
-            pstmt.setString(2, cm.getSurname());
-            pstmt.setBoolean(3, cm.getGender() == "Male");
-            pstmt.setString(4, cm.getContactNum());
-            pstmt.setString(5, cm.getAddress());
-            pstmt.setString(6, cm.getSuburb());
-            pstmt.setString(7, cm.getState());
-            pstmt.setInt(8, cm.getPostalCode());
-            pstmt.setBoolean(9, cm.isDefaulter());
-            pstmt.setBoolean(10, cm.isFrequenter());
-            pstmt.setInt(11, cm.getCustomerID());
+            pstmt.setString(1, ctm.getFirstName());
+            pstmt.setString(2, ctm.getSurname());
+            pstmt.setBoolean(3, ctm.getGender().equals("Male"));
+            pstmt.setString(4, ctm.getContactNum());
+            pstmt.setString(5, ctm.getAddress());
+            pstmt.setString(6, ctm.getSuburb());
+            pstmt.setString(7, ctm.getState());
+            pstmt.setInt(8, ctm.getPostalCode());
+            pstmt.setBoolean(9, ctm.isDefaulter());
+            pstmt.setBoolean(10, ctm.isFrequenter());
+            pstmt.setInt(11, ctm.getCustomerID());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -125,20 +119,20 @@ public class CustomerDAOImpl implements CustomerDAO {
             ResultSet rs = Spstmt.executeQuery();
             // loop through the result set
             while (rs.next()) {
-                CustomerModel cus = new CustomerModel();
-                cus.setCustomerID(rs.getInt("customer_id"));
-                cus.setFirstName(rs.getString("first_name"));
-                cus.setSurname(rs.getString("surname"));
-                cus.setGender(rs.getBoolean("gender"));
-                cus.setContactNum(rs.getString("contact_num"));
-                cus.setAddress(rs.getString("address"));
-                cus.setSuburb(rs.getString("suburb"));
-                cus.setState(rs.getString("state"));
-                cus.setPostalCode(rs.getInt("postal_code"));
-                cus.setDefaulter(rs.getBoolean("defaulter"));
-                cus.setFrequenter(rs.getBoolean("frequenter"));
+                CustomerModel ctm = new CustomerModel();
+                ctm.setCustomerID(rs.getInt("customer_id"));
+                ctm.setFirstName(rs.getString("first_name"));
+                ctm.setSurname(rs.getString("surname"));
+                ctm.setGender(rs.getBoolean("gender"));
+                ctm.setContactNum(rs.getString("contact_num"));
+                ctm.setAddress(rs.getString("address"));
+                ctm.setSuburb(rs.getString("suburb"));
+                ctm.setState(rs.getString("state"));
+                ctm.setPostalCode(rs.getInt("postal_code"));
+                ctm.setDefaulter(rs.getBoolean("defaulter"));
+                ctm.setFrequenter(rs.getBoolean("frequenter"));
 
-                resultList.add(cus);
+                resultList.add(ctm);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
